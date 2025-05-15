@@ -1,4 +1,4 @@
-.login-form {
+.loginForm {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -9,11 +9,7 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-::placeholder {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-}
-
-.login-form__input {
+.loginFormInput {
   border: 1.5px solid #ecedec;
   border-radius: 10px;
   display: flex;
@@ -23,13 +19,13 @@
   transition: 0.2s ease-in-out;
 }
 
-.login-form__eye-button {
+.loginFormEyeButton {
   cursor: pointer;
   background: none;
   border: none;
 }
 
-.login-form__input input {
+.loginFormInput input {
   margin: 0.2rem 0 0.2rem 0.5rem;
   border-radius: 0.5rem;
   border: none;
@@ -37,7 +33,7 @@
   height: 2rem;
 }
 
-.login-form__input input:focus {
+.loginFormInput input:focus {
   outline: none;
 }
 
@@ -45,7 +41,7 @@
   border: 1.5px solid #2d79f3;
 }
 
-.flex-row {
+.flexRow {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -53,13 +49,7 @@
   justify-content: space-between;
 }
 
-.flex-row > div > label {
-  font-size: 14px;
-  color: black;
-  font-weight: 400;
-}
-
-.login-form__button {
+.loginFormButton {
   all: unset;
   font-size: 14px;
   margin-left: 5px;
@@ -68,7 +58,7 @@
   cursor: pointer;
 }
 
-.login-form__login-button {
+.loginFormLoginButton {
   margin: 20px 0 10px 0;
   background-color: #151717;
   border: none;
@@ -81,7 +71,7 @@
   cursor: pointer;
 }
 
-.login-form__login-button:hover {
+.loginFormLoginButton:hover {
   background-color: #252727;
 }
 
@@ -92,7 +82,7 @@
   margin: 5px 0;
 }
 
-.login-form__google-button {
+.loginFormGoogleButton {
   margin-top: 10px;
   color: black;
   width: 100%;
@@ -107,4 +97,15 @@
   background-color: white;
   cursor: pointer;
   transition: 0.2s ease-in-out;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffe8f3, #d9f3ff); /* Soft pastel gradient background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
