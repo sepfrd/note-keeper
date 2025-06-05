@@ -1,0 +1,23 @@
+{
+  "plugins": ["@shufo/prettier-plugin-blade"],
+  "pluginsConfig": {
+    "tailwindcss": {
+      "classAttributes": ["class", "className", "ngClass"],
+      "classAttributeSeparator": "always",
+      "classAttributeLineBreak": "always"
+    }
+  },
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "options": {
+        "parser": "blade",
+        "tabWidth": 2
+      }
+    }
+  ],
+  "semi": true,
+  "singleQuote": true,
+  "printWidth": 80,
+  "tabWidth": 2
+}
