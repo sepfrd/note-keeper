@@ -1,6 +1,6 @@
-import { ToastContext, type ToastMessage } from '@/contexts/ToastContext';
-import { toastService } from '@/utils/toastService';
-import { useEffect, useState, type ReactNode } from 'react';
+import { ToastContext, type ToastMessage } from "@/contexts/ToastContext";
+import { toastService } from "@/utils/toastService";
+import { useEffect, useState, type ReactNode } from "react";
 
 type ToastProviderProps = {
   children: ReactNode;
@@ -17,13 +17,13 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
     const { type, text } = message;
 
     switch (type) {
-      case 'success':
+      case "success":
         toastService.success(text);
         break;
-      case 'error':
+      case "error":
         toastService.error(text);
         break;
-      case 'info':
+      case "info":
         toastService.info(text);
         break;
       default:
@@ -34,9 +34,5 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
     setMessage(null);
   }, [message]);
 
-  return (
-    <ToastContext.Provider value={{ setMessage }}>
-      {children}
-    </ToastContext.Provider>
-  );
+  return <ToastContext.Provider value={{ setMessage }}>{children}</ToastContext.Provider>;
 };

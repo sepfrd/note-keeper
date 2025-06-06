@@ -4,34 +4,28 @@ import type { LoginDto } from "@/types/login.dto";
 import apiClient from "./apiClient";
 
 export const authService = {
-loginAsync: async (loginDto: LoginDto): Promise<ApiResponse<LoginData> |
-  unknown> => {
-  try {
-  const response = await apiClient.post<ApiResponse<LoginData>>("/auth/login",
-    loginDto);
-    return response.data;
+  loginAsync: async (loginDto: LoginDto): Promise<ApiResponse<LoginData> | unknown> => {
+    try {
+      const response = await apiClient.post<ApiResponse<LoginData>>("/auth/login", loginDto);
+      return response.data;
     } catch (error: unknown) {
-    return error;
+      return error;
     }
-    },
-    refreshAccessTokenAsync: async (): Promise<ApiResponse<LoginData> | unknown>
-      => {
-      try {
-      const response = await apiClient.post<ApiResponse<LoginData>
-        >("/auth/refresh-token");
-        return response.data;
-        } catch (error: unknown) {
-        return error;
-        }
-        },
-        requestGoogleOidcAsync: async (): Promise<ApiResponse<string> | unknown>
-          => {
-          try {
-          const response = await apiClient.post<ApiResponse<string>
-            >("/oauth/v2/google/oidc");
-            return response.data;
-            } catch (error: unknown) {
-            return error;
-            }
-            },
-            };
+  },
+  refreshAccessTokenAsync: async (): Promise<ApiResponse<LoginData> | unknown> => {
+    try {
+      const response = await apiClient.post<ApiResponse<LoginData>>("/auth/refresh-token");
+      return response.data;
+    } catch (error: unknown) {
+      return error;
+    }
+  },
+  requestGoogleOidcAsync: async (): Promise<ApiResponse<string> | unknown> => {
+    try {
+      const response = await apiClient.post<ApiResponse<string>>("/oauth/v2/google/oidc");
+      return response.data;
+    } catch (error: unknown) {
+      return error;
+    }
+  },
+};

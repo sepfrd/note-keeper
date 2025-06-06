@@ -1,5 +1,5 @@
-import styles from './Loader.module.css';
-import React from 'react';
+import styles from "./Loader.module.css";
+import React from "react";
 
 const Loader: React.FC = () => {
   return (
@@ -9,11 +9,15 @@ const Loader: React.FC = () => {
         height="200px"
         width="200px"
         viewBox="0 0 200 200"
-        className={styles.pencil}
-      >
+        className={styles.pencil}>
         <defs>
           <clipPath className={styles.pencilEraser}>
-            <rect height={30} width={30} ry={5} rx={5} />
+            <rect
+              height={30}
+              width={30}
+              ry={5}
+              rx={5}
+            />
           </clipPath>
         </defs>
         <circle
@@ -27,7 +31,9 @@ const Loader: React.FC = () => {
           r={70}
           className={styles.pencilStroke}
         />
-        <g transform="translate(100,100)" className={styles.pencilRotate}>
+        <g
+          transform="translate(100,100)"
+          className={styles.pencilRotate}>
           <g fill="none">
             <circle
               transform="rotate(-90)"
@@ -59,8 +65,7 @@ const Loader: React.FC = () => {
           </g>
           <g
             transform="rotate(-90) translate(49,0)"
-            className={styles.pencilEraser}
-          >
+            className={styles.pencilEraser}>
             <g className={styles.pencilEraserSkew}>
               <rect
                 height={30}
@@ -75,20 +80,50 @@ const Loader: React.FC = () => {
                 width={5}
                 fill="hsl(223,90%,60%)"
               />
-              <rect height={20} width={30} fill="hsl(223,10%,90%)" />
-              <rect height={20} width={15} fill="hsl(223,10%,70%)" />
-              <rect height={20} width={5} fill="hsl(223,10%,80%)" />
-              <rect height={2} width={30} y={6} fill="hsla(223,10%,10%,0.2)" />
-              <rect height={2} width={30} y={13} fill="hsla(223,10%,10%,0.2)" />
+              <rect
+                height={20}
+                width={30}
+                fill="hsl(223,10%,90%)"
+              />
+              <rect
+                height={20}
+                width={15}
+                fill="hsl(223,10%,70%)"
+              />
+              <rect
+                height={20}
+                width={5}
+                fill="hsl(223,10%,80%)"
+              />
+              <rect
+                height={2}
+                width={30}
+                y={6}
+                fill="hsla(223,10%,10%,0.2)"
+              />
+              <rect
+                height={2}
+                width={30}
+                y={13}
+                fill="hsla(223,10%,10%,0.2)"
+              />
             </g>
           </g>
           <g
             transform="rotate(-90) translate(49,-30)"
-            className={styles.pencilPoint}
-          >
-            <polygon points="15 0,30 30,0 30" fill="hsl(33,90%,70%)" />
-            <polygon points="15 0,6 30,0 30" fill="hsl(33,90%,50%)" />
-            <polygon points="15 0,20 10,10 10" fill="hsl(223,10%,10%)" />
+            className={styles.pencilPoint}>
+            <polygon
+              points="15 0,30 30,0 30"
+              fill="hsl(33,90%,70%)"
+            />
+            <polygon
+              points="15 0,6 30,0 30"
+              fill="hsl(33,90%,50%)"
+            />
+            <polygon
+              points="15 0,20 10,10 10"
+              fill="hsl(223,10%,10%)"
+            />
           </g>
         </g>
       </svg>

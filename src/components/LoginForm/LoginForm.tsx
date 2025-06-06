@@ -1,21 +1,20 @@
-import GoogleIcon from '@/assets/icons/google.svg?react';
-import type { LoginDto } from '@/types/login.dto';
-import { AtSign, EyeIcon, EyeOffIcon, Lock } from 'lucide-react';
-import { useState } from 'react';
-import type { LoginFormProps } from './LoginForm.types';
+import GoogleIcon from "@/assets/icons/google.svg?react";
+import type { LoginDto } from "@/types/login.dto";
+import { AtSign, EyeIcon, EyeOffIcon, Lock } from "lucide-react";
+import { useState } from "react";
+import type { LoginFormProps } from "./LoginForm.types";
 
 const LoginForm: React.FC<LoginFormProps> = (props) => {
   const [loginInfo, setLoginInfo] = useState<LoginDto>({
-    usernameOrEmail: '',
-    password: '',
+    usernameOrEmail: "",
+    password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginInfo((prev: LoginDto) => ({
       ...prev,
-      [e.target.name]:
-        e.target.type === 'checkbox' ? e.target.checked : e.target.value,
+      [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value,
     }));
   };
 
@@ -25,7 +24,10 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
         <label>Username or Email </label>
       </div>
       <div className="flex flex-row items-center border border-[var(--color-text)] rounded-xl p-1 transition-all duration-200 focus-within:border-[var(--color-primary)]">
-        <AtSign width={20} height={20} />
+        <AtSign
+          width={20}
+          height={20}
+        />
         <input
           name="usernameOrEmail"
           type="text"
@@ -39,10 +41,13 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
         <label>Password </label>
       </div>
       <div className="flex flex-row items-center border border-[var(--color-text)] rounded-xl p-1 transition-all duration-200 focus-within:border-[var(--color-primary)]">
-        <Lock width={20} height={20} />
+        <Lock
+          width={20}
+          height={20}
+        />
         <input
           name="password"
-          type={showPassword ? 'text' : 'password'}
+          type={showPassword ? "text" : "password"}
           className="ml-2 my-1 rounded-md border-none w-[85%] h-8 focus:outline-none"
           placeholder="Enter your Password"
           value={loginInfo.password}
@@ -52,12 +57,19 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
           type="button"
           autoFocus={false}
           className="cursor-pointer bg-transparent border-none"
-          onClick={() => setShowPassword((prev) => !prev)}
-        >
+          onClick={() => setShowPassword((prev) => !prev)}>
           {showPassword ? (
-            <EyeOffIcon color="var(--color-text)" width={20} height={20} />
+            <EyeOffIcon
+              color="var(--color-text)"
+              width={20}
+              height={20}
+            />
           ) : (
-            <EyeIcon color="var(--color-text)" width={20} height={20} />
+            <EyeIcon
+              color="var(--color-text)"
+              width={20}
+              height={20}
+            />
           )}
         </button>
       </div>
@@ -80,16 +92,14 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
           e.preventDefault();
 
           props.onLogin?.(loginInfo);
-        }}
-      >
+        }}>
         Sign In
       </button>
       <p className="text-center text-sm my-1">
-        Don't have an account?{' '}
+        Don't have an account?{" "}
         <button
           className="text-sm ml-1 text-[var(--color-primary)] font-medium cursor-pointer"
-          onClick={props.onSignup}
-        >
+          onClick={props.onSignup}>
           Sign Up
         </button>
       </p>
@@ -117,9 +127,11 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
           onClick={(e) => {
             e.preventDefault();
             props.onGoogleLogin?.(e);
-          }}
-        >
-          <GoogleIcon width={25} height={25} />
+          }}>
+          <GoogleIcon
+            width={25}
+            height={25}
+          />
           Google
         </button>
       </div>

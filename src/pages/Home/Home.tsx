@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
   return (
@@ -12,15 +12,13 @@ const Home: React.FC = () => {
           justify-center
           py-24
           px-4
-          text-center"
-      >
+          text-center">
         <h1
           className="
             text-4xl
             md:text-6xl
             font-bold
-            mb-4"
-        >
+            mb-4">
           Welcome to NoteKeeper
         </h1>
         <p
@@ -28,10 +26,8 @@ const Home: React.FC = () => {
             text-lg
             md:text-xl
             max-w-xl
-            text-[var(--color-text-muted)]"
-        >
-          Keep your thoughts organized. Sync with Notion or use your private
-          notebook — securely and easily.
+            text-[var(--color-text-muted)]">
+          Keep your thoughts organized. Sync with Notion or use your private notebook — securely and easily.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-4">
           <Link
@@ -43,8 +39,7 @@ const Home: React.FC = () => {
               text-[var(--color-bg)]
               rounded-xl
               font-medium
-              hover:opacity-90"
-          >
+              hover:opacity-90">
             Get Started
           </Link>
         </div>
@@ -59,8 +54,7 @@ const Home: React.FC = () => {
           gap-8
           px-8
           py-16
-          bg-[var(--color-bg-alt)]"
-      >
+          bg-[var(--color-bg-alt)]">
         <FeatureCard
           title="Native Notes"
           description="Create and manage notes locally with full-text support and tagging."
@@ -80,18 +74,14 @@ const Home: React.FC = () => {
           py-8
           text-center
           text-sm
-          text-[var(--color-text-muted)]"
-      >
+          text-[var(--color-text-muted)]">
         © {new Date().getFullYear()} NoteKeeper. All rights reserved.
       </footer>
     </div>
   );
 };
 
-const FeatureCard: React.FC<{ title: string; description: string }> = ({
-  title,
-  description,
-}) => (
+const FeatureCard: React.FC<{ title: string; description: string }> = ({ title, description }) => (
   <div
     className="
   p-6
@@ -99,8 +89,7 @@ const FeatureCard: React.FC<{ title: string; description: string }> = ({
         border
         border-[var(--color-border)]
         bg-[var(--color-bg)]
-        shadow-sm"
-  >
+        shadow-sm">
     <h3 className="text-xl font-semibold mb-2">{title}</h3>
     <p className="text-[var(--color-text-muted)]">{description}</p>
   </div>

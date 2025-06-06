@@ -1,10 +1,8 @@
-import Loader from '@/components/Loader';
-import { LoadingContext } from '@/contexts/LoadingContext';
-import { useState } from 'react';
+import Loader from "@/components/Loader";
+import { LoadingContext } from "@/contexts/LoadingContext";
+import { useState } from "react";
 
-export const LoadingProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+export const LoadingProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
