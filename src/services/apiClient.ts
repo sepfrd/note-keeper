@@ -10,7 +10,7 @@ const baseAxiosConfig = {
 
 export let accessToken: string | null = null;
 
-export const setAccessToken = (token: string) => {
+export const setAccessToken = (token: string | null) => {
   accessToken = token;
 };
 
@@ -31,26 +31,26 @@ apiClient.interceptors.response.use(
     return response;
   },
   async (error) => {
-    const originalRequest = error.config;
+    // const originalRequest = error.config;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
-      originalRequest._retry = true;
-      try {
-        const response = await axios.post<ApiResponse<LoginData>>("/auth/refresh-token", {}, baseAxiosConfig);
+    // if (error.response?.status === 401 && !originalRequest._retry) {
+    //   originalRequest._retry = true;
+    //   try {
+    //     const response = await axios.post<ApiResponse<LoginData>>("/auth/refresh-token", {}, baseAxiosConfig);
 
-        const newAccessToken = response.data.data.token;
+    //     const newAccessToken = response.data.data.token;
 
-        setAccessToken(newAccessToken);
+    //     setAccessToken(newAccessToken);
 
-        // Retry the original request with new token
-        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-        return apiClient(originalRequest);
-      } catch (refreshError) {
-        sessionStorage.clear();
-        localStorage.clear();
-        return Promise.reject(refreshError);
-      }
-    }
+    //     // Retry the original request with new token
+    //     originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+    //     return apiClient(originalRequest);
+    //   } catch (refreshError) {
+    //     sessionStorage.clear();
+    //     localStorage.clear();
+    //     return Promise.reject(refreshError);
+    //   }
+    // }
 
     const message = error?.response?.data?.message;
 

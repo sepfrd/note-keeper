@@ -1,9 +1,16 @@
+import apiClient, { accessToken } from "@/services/apiClient";
 import React from "react";
 import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
   return (
-    <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] transition-colors duration-300">
+    <div
+      className="
+        min-h-screen
+        bg-[var(--color-bg)]
+        text-[var(--color-text)]
+        transition-colors
+        duration-300">
       <section
         className="
           flex
@@ -41,6 +48,22 @@ const Home: React.FC = () => {
               font-medium
               hover:opacity-90">
             Get Started
+          </Link>
+
+          <Link
+            to="/notes"
+            onClick={async () => {
+              // const response = await apiClient.get("http://localhost:8000/api/notes");
+            }}
+            className="
+              px-6
+              py-3
+              bg-[var(--color-primary)]
+              text-[var(--color-bg)]
+              rounded-xl
+              font-medium
+              hover:opacity-90">
+            Notes
           </Link>
         </div>
       </section>

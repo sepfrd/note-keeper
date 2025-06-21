@@ -11,6 +11,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
 
   const logout = () => {
+    setAccessToken(null);
     setUser(null);
     localStorage.removeItem("user");
   };

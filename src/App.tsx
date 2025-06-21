@@ -1,5 +1,5 @@
 import GlobalToast from "@/components/GlobalToast";
-import Login from "@/pages/Login";
+import Login from "@/pages/Auth/Login";
 import { ToastProvider } from "@/providers/ToastProvider";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
@@ -7,6 +7,7 @@ import Home from "./pages/Home/Home";
 import NavBar from "@/components/NavBar";
 import { AuthProvider } from "@/providers/AuthProvider";
 import { LoadingProvider } from "@/providers/LoadingProvider";
+import OidcCallback from "@/pages/Auth/OidcCallback";
 
 function App() {
   return (
@@ -23,6 +24,10 @@ function App() {
             <Route
               path="/login"
               element={<Login />}
+            />
+            <Route
+              path="/google-oidc"
+              element={<OidcCallback />}
             />
           </Routes>
         </ToastProvider>

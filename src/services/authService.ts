@@ -20,9 +20,9 @@ export const authService = {
       return error;
     }
   },
-  requestGoogleOidcAsync: async (): Promise<ApiResponse<string> | unknown> => {
+  requestGoogleOidcAsync: async (redirectUri: string): Promise<ApiResponse<string> | unknown> => {
     try {
-      const response = await apiClient.post<ApiResponse<string>>("/oauth/v2/google/oidc");
+      const response = await apiClient.post<ApiResponse<string>>(`/oauth/v2/google/oidc?redirectUri=${redirectUri}`);
       return response.data;
     } catch (error: unknown) {
       return error;

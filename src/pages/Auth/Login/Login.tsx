@@ -25,7 +25,7 @@ const Login = () => {
   };
 
   const onGoogleLogin: React.MouseEventHandler<HTMLButtonElement> = async () => {
-    const response = await authService.requestGoogleOidcAsync();
+    const response = await authService.requestGoogleOidcAsync("http://localhost:3000/google-oidc");
     if (typeof response === "object") {
       const apiResponse = response as ApiResponse<string>;
       window.location.href = apiResponse.data;
