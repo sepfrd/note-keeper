@@ -33,7 +33,17 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen m-0 p-0 flex justify-center items-center overflow-hidden bg-[var(--color-bg)]">
+    <div
+      className="
+        min-h-screen
+        min-w-screen
+        m-0
+        p-0
+        flex
+        justify-center
+        items-center
+        overflow-hidden
+        bg-[var(--color-bg)]">
       <LoginForm
         onLogin={onLogin}
         onGoogleLogin={onGoogleLogin}

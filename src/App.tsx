@@ -8,6 +8,8 @@ import NavBar from "@/components/NavBar";
 import { AuthProvider } from "@/providers/AuthProvider";
 import { LoadingProvider } from "@/providers/LoadingProvider";
 import OidcCallback from "@/pages/Auth/OidcCallback";
+import Notes from "@/pages/Notes";
+import NewNote from "@/pages/NewNote";
 
 function App() {
   return (
@@ -28,6 +30,14 @@ function App() {
             <Route
               path="/google-oidc"
               element={<OidcCallback />}
+            />
+            <Route
+              path="/notes"
+              element={<Notes />}
+            />
+            <Route
+              path="/new-note"
+              element={<NewNote />}
             />
           </Routes>
         </ToastProvider>

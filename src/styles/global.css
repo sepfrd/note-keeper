@@ -1,3 +1,59 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button {
+  cursor: pointer;
+}
+
+@font-face {
+  font-family: "Comic Neue";
+  src: url("/fonts/Comic_Neue/ComicNeue-Light.ttf");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Comic Neue";
+  src: url("/fonts/Comic_Neue/ComicNeue-Regular.ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Comic Neue";
+  src: url("/fonts/Comic_Neue/ComicNeue-Bold.ttf");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Comic Neue";
+  src: url("/fonts/Comic_Neue/ComicNeue-LightItalic.ttf");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Comic Neue";
+  src: url("/fonts/Comic_Neue/ComicNeue-Italic.ttf") ("woff");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Comic Neue";
+  src: url("/fonts/Comic_Neue/ComicNeue-BoldItalic.ttf");
+  font-weight: 700;
+  font-style: italic;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -8,10 +64,50 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+:root {
+  --color-bg: #ffffff;
+  --color-text: #1f2937;
+  --color-primary: #3b82f6;
+  --color-secondary: #2563eb;
+  --color-border: #e5e7eb;
+  --color-muted: #6b7280;
+  --color-accent: #f97316;
+}
+
+[data-theme="dark"] {
+  --color-bg: #1e293b;
+  --color-text: #f9fafb;
+  --color-primary: #60a5fa;
+  --color-secondary: #3b82f6;
+  --color-border: #334155;
+  --color-muted: #94a3b8;
+  --color-accent: #fb923c;
+}
+
+@layer base {
+  :root {
+    --font-sans: "Comic Neue", cursive;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+  }
+
+  .border {
+    border-color: var(--color-border);
+  }
+
+  .text-primary {
+    color: var(--color-primary);
+  }
+
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+
+  .text-muted {
+    color: var(--color-muted);
+  }
 }

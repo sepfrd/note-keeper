@@ -19,7 +19,20 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
   };
 
   return (
-    <form className="flex flex-col self-center gap-2.5 p-8 w-[450px] rounded-2xl font-sans text-[var(--color-text)] bg-[var(--color-bg)] border-2 border-[var(--color-text)]">
+    <form
+      className="
+      flex
+      flex-col
+      self-center
+      gap-2.5
+      p-8
+      w-[450px]
+      rounded-2xl
+      font-sans
+      text-[var(--color-text)]
+      bg-[var(--color-bg)]
+      border-2
+      border-[var(--color-text)]">
       <div className="flex flex-row items-center justify-between gap-2.5">
         <label>Username or Email </label>
       </div>

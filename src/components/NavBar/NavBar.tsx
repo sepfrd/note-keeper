@@ -1,11 +1,12 @@
 import { AuthContext } from "@/contexts/AuthContext";
 import { AlignJustifyIcon, MoonIcon, SunIcon } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const NAV_LINKS = [
   { name: "Home", href: "/" },
   { name: "Notes", href: "/notes" },
-  { name: "About", href: "/about" },
+  { name: "New Note", href: "/new-note" },
 ];
 
 export const NavBar: React.FC = () => {
@@ -39,57 +40,72 @@ export const NavBar: React.FC = () => {
   };
 
   return (
-    <nav className="fixed w-full z-50 shadow-md bg-[var(--color-bg)]">
-      <div className="px-2">
-        <div className="flex flex-row justify-between h-16 items-center">
+    <>
+      <nav
+        className="
+          fixed
+          top-0
+          w-full
+          z-50
+          shadow-md
+          bg-[var(--color-bg)]">
+        <div className="px-2">
           <div
             className="
+            flex
+            flex-row
+            justify-between
+            h-16
+            items-center">
+            <Link
+              to="/"
+              className="
               flex-shrink-0
               font-bold
               text-xl
-              cursor-pointer
               select-none
-              text-[var(--color-primary)]">
-            NoteKeeper
-          </div>
+              text-[var(--color-secondary)]
+              hover:text-[var(--color-primary)]">
+              NoteKeeper
+            </Link>
 
-          <div className="hidden md:flex space-x-8">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="hover:text-[var(--color-accent)] transition">
-                {link.name}
-              </a>
-            ))}
-          </div>
+            <div className="hidden md:flex space-x-8">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="hover:text-[var(--color-accent)] transition">
+                  {link.name}
+                </a>
+              ))}
+            </div>
 
-          <div className="flex flex-row items-center space-x-4">
-            <button
-              onClick={toggleTheme}
-              aria-label="Toggle dark mode"
-              className="
+            <div className="flex flex-row items-center space-x-4">
+              <button
+                onClick={toggleTheme}
+                aria-label="Toggle dark mode"
+                className="
                 p-2
                 rounded
                 hover:bg-[var(--color-border)]
                 transition
                 cursor-pointer"
-              title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}>
-              {theme === "light" ? <MoonIcon className="h-6 w-6" /> : <SunIcon className="h-6 w-6" />}
-            </button>
+                title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}>
+                {theme === "light" ? <MoonIcon className="h-6 w-6" /> : <SunIcon className="h-6 w-6" />}
+              </button>
 
-            {auth?.user ? (
-              <>
-                <span
-                  className="
+              {auth?.user ? (
+                <>
+                  <span
+                    className="
                     hidden
                     sm:inline
                     text-lg
                     text-[var(--color-muted)]">
-                  {auth.user?.email}
-                </span>
-                <a
-                  className="
+                    {auth.user?.email}
+                  </span>
+                  <a
+                    className="
                     text-[var(--color-bg)]
                     bg-[var(--color-accent)]
                     hidden
@@ -100,14 +116,14 @@ export const NavBar: React.FC = () => {
                     rounded
                     transition
                     cursor-pointer"
-                  onClick={handleLogout}>
-                  Logout
-                </a>
-              </>
-            ) : (
-              <a
-                href="/login"
-                className="
+                    onClick={handleLogout}>
+                    Logout
+                  </a>
+                </>
+              ) : (
+                <a
+                  href="/login"
+                  className="
                   text-[var(--color-bg)]
                   bg-[var(--color-accent)]
                   hidden
@@ -118,38 +134,38 @@ export const NavBar: React.FC = () => {
                   rounded
                   transition
                   cursor-pointer"
-                onClick={() => setMobileMenuOpen(false)}>
-                Login
-              </a>
-            )}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="
+                  onClick={() => setMobileMenuOpen(false)}>
+                  Login
+                </a>
+              )}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="
                 md:hidden
                 p-2
                 rounded
                 hover:bg-[var(--color-border)]
                 transition"
-              aria-label="Toggle menu">
-              <AlignJustifyIcon />
-            </button>
+                aria-label="Toggle menu">
+                <AlignJustifyIcon />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      {mobileMenuOpen && (
-        <div
-          className="
+        {mobileMenuOpen && (
+          <div
+            className="
             md:hidden
             border-t
             border-[var(--color-border)]
             bg-[var(--color-bg)]">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className="
                   block
                   px-3
                   py-2
@@ -157,14 +173,14 @@ export const NavBar: React.FC = () => {
                   hover:text-[var(--color-bg)]
                   hover:bg-[var(--color-accent)]
                   transition"
-                onClick={() => setMobileMenuOpen(false)}>
-                {link.name}
-              </a>
-            ))}
-            {auth?.user != null ? (
-              <button
-                onClick={handleLogout}
-                className="
+                  onClick={() => setMobileMenuOpen(false)}>
+                  {link.name}
+                </a>
+              ))}
+              {auth?.user != null ? (
+                <button
+                  onClick={handleLogout}
+                  className="
                   w-full
                   text-left
                   px-3
@@ -174,12 +190,12 @@ export const NavBar: React.FC = () => {
                   transition
                   text-[var(--color-bg)]
                   bg-[var(--color-accent)]">
-                Logout
-              </button>
-            ) : (
-              <a
-                href="/login"
-                className="
+                  Logout
+                </button>
+              ) : (
+                <a
+                  href="/login"
+                  className="
                   block
                   px-3
                   py-2
@@ -188,14 +204,16 @@ export const NavBar: React.FC = () => {
                   transition
                   text-[var(--color-bg)]
                   bg-[var(--color-accent)]"
-                onClick={() => setMobileMenuOpen(false)}>
-                Login
-              </a>
-            )}
+                  onClick={() => setMobileMenuOpen(false)}>
+                  Login
+                </a>
+              )}
+            </div>
           </div>
-        </div>
-      )}
-    </nav>
+        )}
+      </nav>
+      <div className="h-16" />
+    </>
   );
 };
 
