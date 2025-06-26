@@ -4,11 +4,12 @@ import { authService } from "@/services/authService";
 import type { ApiResponse } from "@/types/api.types";
 import type { JwtDto } from "@/types/auth.types";
 import { jwtDecode } from "jwt-decode";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const hasRefreshed = useRef(false);
 
   const logout = () => {
     setAccessToken(null);
@@ -33,6 +34,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   useEffect(() => {
+    if (hasRefreshed.current) {
+      return;
+    }
+
+    hasRefreshed.current = true;
+
     const stored = localStorage.getItem("user");
     if (stored) {
       if (!accessToken) {
