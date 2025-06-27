@@ -1,62 +1,95 @@
 import { type User, AuthContext } from "@/contexts/AuthContext";
-import { accessToken, setAccessToken } from "@/services/apiClient";
 import { authService } from "@/services/authService";
-import type { ApiResponse } from "@/types/api.types";
 import type { JwtDto } from "@/types/auth.types";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useRef, useState } from "react";
 
+//FIXME: fix page reload problem
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const hasRefreshed = useRef(false);
 
   const logout = () => {
-    setAccessToken(null);
-    setUser(null);
-    localStorage.removeItem("user");
+    authService.logoutAsync().then(() => {
+      setAccessToken(null);
+      setUser(null);
+      localStorage.removeItem("user");
+    });
   };
 
   const login = (token: string) => {
-    const decoded = jwtDecode(token);
-    const jwt = decoded as JwtDto;
+    const decoded = jwtDecode<JwtDto>(token);
 
     const user: User = {
-      username: jwt.username,
-      email: jwt.email,
-      uuid: jwt.uuid,
+      username: decoded.username,
+      email: decoded.email,
+      uuid: decoded.uuid,
     };
 
     setAccessToken(token);
     setUser(user);
-
     localStorage.setItem("user", JSON.stringify(user));
+    setIsAuthenticated(true);
   };
 
   useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+
+    if (!storedUser) {
+      setIsAuthLoading(false);
+      return;
+    }
+
     if (hasRefreshed.current) {
+      setIsAuthLoading(false);
+      return;
+    }
+
+    if (accessToken) {
+      setIsAuthLoading(false);
+      setIsAuthenticated(true);
       return;
     }
 
     hasRefreshed.current = true;
 
-    const stored = localStorage.getItem("user");
-    if (stored) {
-      if (!accessToken) {
-        authService.refreshAccessTokenAsync().then((response) => {
-          if (typeof response === "object") {
-            const apiResponse = response as ApiResponse<string>;
-            if (apiResponse.isSuccess) {
-              login(apiResponse.data);
-            }
+    setUser(JSON.parse(storedUser));
+
+    if (!accessToken) {
+      authService
+        .refreshAccessTokenAsync()
+        .then((response) => {
+          if (response) {
+            login(response);
+          } else {
+            logout();
           }
-        });
-      }
-
-      setUser(JSON.parse(stored));
+        })
+        .catch(() => {
+          logout();
+        })
+        .finally(() => setIsAuthLoading(false));
+    } else {
+      setIsAuthLoading(false);
     }
-    setLoading(false);
-  }, []);
+  }, [accessToken]);
 
-  return <AuthContext.Provider value={{ user, loading, login, logout }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthLoading,
+        login,
+        logout,
+        accessToken,
+        setAccessToken,
+        isAuthenticated,
+      }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

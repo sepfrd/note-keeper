@@ -1,36 +1,10 @@
+import { API_ENDPOINTS } from "@/constants/apiEndpoints";
 import apiClient from "@/services/apiClient";
-import type { ApiResponse } from "@/types/api.types";
 import type { NoteDto, NoteFilterDto, UpdatedNoteDto } from "@/types/note.types";
+import { safeRequest } from "@/utils/safeRequest";
 
 export const noteService = {
-  createAsync: async (noteDto: NoteDto): Promise<ApiResponse<NoteDto> | unknown> => {
-    try {
-      const response = await apiClient.post<ApiResponse<NoteDto>>("/notes", noteDto);
-      return response.data;
-    } catch (error: unknown) {
-      return error;
-    }
-  },
-  getAllAsync: async (noteFilterDto: NoteFilterDto): Promise<ApiResponse<NoteDto[]> | unknown> => {
-    try {
-      const response = await apiClient.get<ApiResponse<NoteDto>>("/notes", { params: noteFilterDto });
-      return response.data;
-    } catch (error: unknown) {
-      return error;
-    }
-  },
-  updateAsync: async (updatedNote: UpdatedNoteDto): Promise<ApiResponse<NoteDto> | null> => {
-    try {
-      const response = await apiClient.patch<ApiResponse<NoteDto>>(`/notes/uuid/${updatedNote.uuid}`, updatedNote);
-
-      if (typeof response === "object") {
-        const apiResponse = response.data as ApiResponse<NoteDto>;
-        return apiResponse;
-      } else {
-        return null;
-      }
-    } catch {
-      return null;
-    }
-  },
+  createAsync: (noteDto: NoteDto) => safeRequest<NoteDto>(() => apiClient.post(API_ENDPOINTS.NOTES, noteDto)),
+  getAllAsync: (noteFilterDto?: NoteFilterDto) => safeRequest<NoteDto[]>(() => apiClient.get(API_ENDPOINTS.NOTES, { params: noteFilterDto })),
+  updateAsync: (updatedNote: UpdatedNoteDto) => safeRequest<NoteDto>(() => apiClient.patch(`${API_ENDPOINTS.NOTES_UUID}/${updatedNote.uuid}`, updatedNote)),
 };

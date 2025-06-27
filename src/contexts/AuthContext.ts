@@ -7,10 +7,13 @@ export type User = {
 };
 
 export type AuthContextType = {
+  accessToken: string | null;
+  setAccessToken: (token: string | null) => void;
   user: User | null;
-  loading: boolean;
+  isAuthLoading: boolean;
   login: (token: string) => void;
   logout: () => void;
+  isAuthenticated: boolean;
 };
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);

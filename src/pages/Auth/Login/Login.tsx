@@ -1,34 +1,34 @@
 import LoginForm from "@/components/LoginForm";
 import type { LoginHandler } from "@/components/LoginForm/LoginForm.types";
+import { CONFIG } from "@/constants/config";
+import { PATHS } from "@/constants/paths";
 import { useAuth } from "@/hooks/useAuth";
-import { accessToken } from "@/services/apiClient";
 import { authService } from "@/services/authService";
-import type { ApiResponse } from "@/types/api.types";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login, user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (accessToken) {
-      window.location.href = "/";
+    if (user) {
+      navigate(PATHS.HOME);
     }
-  });
+  }, [navigate, user]);
 
   const onLogin: LoginHandler = async (dto) => {
     const response = await authService.loginAsync(dto);
-    if (typeof response === "object") {
-      const apiResponse = response as ApiResponse<string>;
-
-      login(apiResponse.data);
+    if (response) {
+      login(response);
     }
   };
 
   const onGoogleLogin: React.MouseEventHandler<HTMLButtonElement> = async () => {
-    const response = await authService.requestGoogleOidcAsync("http://localhost:3000/google-oidc");
-    if (typeof response === "object") {
-      const apiResponse = response as ApiResponse<string>;
-      window.location.href = apiResponse.data;
+    const response = await authService.requestGoogleOidcAsync(CONFIG.APP_URL + PATHS.GOOGLE_OIDC_CALLBACK);
+
+    if (response) {
+      window.location.href = response;
     }
   };
 

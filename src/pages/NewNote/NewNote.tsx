@@ -1,8 +1,7 @@
+import { PATHS } from "@/constants/paths";
 import { useAuth } from "@/hooks/useAuth";
 import { noteService } from "@/services/noteService";
-import type { ApiResponse } from "@/types/api.types";
 import type { NoteDto } from "@/types/note.types";
-import { toastService } from "@/utils/toastService";
 import MDEditor from "@uiw/react-md-editor";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -23,17 +22,14 @@ const NewNote: React.FC = () => {
   const handleSave = async () => {
     const response = await noteService.createAsync(note);
     if (typeof response === "object") {
-      const apiResponse = response as ApiResponse<NoteDto>;
-      if (!apiResponse.isSuccess) {
-        toastService.error(apiResponse.message);
-      } else {
-        toastService.success(apiResponse.message);
-        navigate("/notes");
+      if (response) {
+        navigate(PATHS.NOTES);
       }
     }
   };
+
   const handleCancel = () => {
-    navigate("/");
+    navigate(PATHS.HOME);
   };
 
   return (

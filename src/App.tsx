@@ -1,48 +1,35 @@
 import GlobalToast from "@/components/GlobalToast";
-import Login from "@/pages/Auth/Login";
-import { ToastProvider } from "@/providers/ToastProvider";
+import NavBar from "@/components/NavBar";
+import ProtectedRoute from "@/components/ProtectedRoute";
+import { ROUTES } from "@/constants/routes";
+import { useAuth } from "@/hooks/useAuth";
+import { injectAuthInterceptor } from "@/services/apiClient";
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import Home from "./pages/Home/Home";
-import NavBar from "@/components/NavBar";
-import { AuthProvider } from "@/providers/AuthProvider";
-import { LoadingProvider } from "@/providers/LoadingProvider";
-import OidcCallback from "@/pages/Auth/OidcCallback";
-import Notes from "@/pages/Notes";
-import NewNote from "@/pages/NewNote";
 
 function App() {
+  const { accessToken, setAccessToken } = useAuth();
+  useEffect(() => {
+    injectAuthInterceptor(() => accessToken, setAccessToken);
+  }, [accessToken, setAccessToken]);
+
   return (
-    <LoadingProvider>
-      <AuthProvider>
-        <ToastProvider>
-          <GlobalToast />
-          <NavBar />
-          <Routes>
+    <>
+      <GlobalToast />
+      <NavBar />
+      <Routes>
+        {ROUTES.map((route) => {
+          return (
             <Route
-              path="/"
-              element={<Home />}
+              key={route.path}
+              path={route.path}
+              element={route.isProtected ? <ProtectedRoute>{route.element}</ProtectedRoute> : route.element}
             />
-            <Route
-              path="/login"
-              element={<Login />}
-            />
-            <Route
-              path="/google-oidc"
-              element={<OidcCallback />}
-            />
-            <Route
-              path="/notes"
-              element={<Notes />}
-            />
-            <Route
-              path="/new-note"
-              element={<NewNote />}
-            />
-          </Routes>
-        </ToastProvider>
-      </AuthProvider>
-    </LoadingProvider>
+          );
+        })}
+      </Routes>
+    </>
   );
 }
 

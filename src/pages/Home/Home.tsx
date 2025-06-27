@@ -1,4 +1,3 @@
-import apiClient, { accessToken } from "@/services/apiClient";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -52,9 +51,6 @@ const Home: React.FC = () => {
 
           <Link
             to="/notes"
-            onClick={async () => {
-              // const response = await apiClient.get("http://localhost:8000/api/notes");
-            }}
             className="
               px-6
               py-3

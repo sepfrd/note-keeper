@@ -1,12 +1,16 @@
+import { PATHS } from "@/constants/paths";
+import { ROUTES } from "@/constants/routes";
 import { AuthContext } from "@/contexts/AuthContext";
-import { AlignJustifyIcon, MoonIcon, SunIcon } from "lucide-react";
+import NewNote from "@/pages/NewNote";
+import Notes from "@/pages/Notes";
+import { AlignJustifyIcon, Home, MoonIcon, SunIcon } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const NAV_LINKS = [
-  { name: "Home", href: "/" },
-  { name: "Notes", href: "/notes" },
-  { name: "New Note", href: "/new-note" },
+  { path: PATHS.HOME, element: <Home />, name: "Home", isProtected: false },
+  { path: PATHS.NOTES, element: <Notes />, name: "Notes", isProtected: true },
+  { path: PATHS.NEW_NOTE, element: <NewNote />, name: "New Note", isProtected: true },
 ];
 
 export const NavBar: React.FC = () => {
@@ -25,7 +29,7 @@ export const NavBar: React.FC = () => {
       setTheme(defaultTheme);
       document.documentElement.setAttribute("data-theme", defaultTheme);
     }
-  }, [auth?.user]);
+  }, []);
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -71,12 +75,11 @@ export const NavBar: React.FC = () => {
 
             <div className="hidden md:flex space-x-8">
               {NAV_LINKS.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
+                <Link
+                  to={link.path}
                   className="hover:text-[var(--color-accent)] transition">
                   {link.name}
-                </a>
+                </Link>
               ))}
             </div>
 
@@ -94,7 +97,7 @@ export const NavBar: React.FC = () => {
                 {theme === "light" ? <MoonIcon className="h-6 w-6" /> : <SunIcon className="h-6 w-6" />}
               </button>
 
-              {auth?.user ? (
+              {auth?.isAuthenticated ? (
                 <>
                   <span
                     className="
@@ -162,11 +165,9 @@ export const NavBar: React.FC = () => {
             bg-[var(--color-bg)]">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {NAV_LINKS.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="
-                  block
+                <Link
+                  to={link.path}
+                  className=" block
                   px-3
                   py-2
                   rounded
@@ -175,8 +176,9 @@ export const NavBar: React.FC = () => {
                   transition"
                   onClick={() => setMobileMenuOpen(false)}>
                   {link.name}
-                </a>
+                </Link>
               ))}
+
               {auth?.user != null ? (
                 <button
                   onClick={handleLogout}

@@ -7,6 +7,11 @@ export interface LoginData {
   };
 }
 
+export interface LoginDto {
+  usernameOrEmail: string;
+  password: string;
+}
+
 export interface JwtDto {
   iss: string;
   aud: string;
