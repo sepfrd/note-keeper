@@ -6,6 +6,7 @@ const Home: React.FC = () => {
     <div
       className="
         min-h-screen
+        min-w-screen
         bg-[var(--color-bg)]
         text-[var(--color-text)]
         transition-colors

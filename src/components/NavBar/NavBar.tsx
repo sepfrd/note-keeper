@@ -1,5 +1,4 @@
 import { PATHS } from "@/constants/paths";
-import { ROUTES } from "@/constants/routes";
 import { AuthContext } from "@/contexts/AuthContext";
 import NewNote from "@/pages/NewNote";
 import Notes from "@/pages/Notes";
@@ -76,6 +75,7 @@ export const NavBar: React.FC = () => {
             <div className="hidden md:flex space-x-8">
               {NAV_LINKS.map((link) => (
                 <Link
+                  key={link.path}
                   to={link.path}
                   className="hover:text-[var(--color-accent)] transition">
                   {link.name}
