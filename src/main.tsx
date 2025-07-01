@@ -18,5 +18,6 @@ createRoot(document.getElementById("root")!).render(
         </AuthProvider>
       </LoadingProvider>
     </BrowserRouter>
+    ,
   </StrictMode>,
 );

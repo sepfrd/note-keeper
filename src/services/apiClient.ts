@@ -1,5 +1,8 @@
 import { API_ENDPOINTS } from "@/constants/apiEndpoints.ts";
 import { CONFIG } from "@/constants/config.ts";
+import { messages } from "@/constants/messages";
+import { loadingManager } from "@/utils/loadingManager";
+import { toastService } from "@/utils/toastService";
 import axios from "axios";
 
 const baseAxiosConfig = {
@@ -9,15 +12,41 @@ const baseAxiosConfig = {
 
 const apiClient = axios.create(baseAxiosConfig);
 
-export const injectAuthInterceptor = (getToken: () => string | null, setToken: (token: string | null) => void) => {
+export const injectAxiosInterceptor = (getToken: () => string | null, setToken: (token: string | null) => void) => {
   apiClient.interceptors.request.use((config) => {
     const token = getToken();
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   });
 
+  apiClient.interceptors.request.use(
+    (config) => {
+      loadingManager.show();
+      return config;
+    },
+    (error) => {
+      loadingManager.hide();
+      toastService.error(messages.genericError);
+      return Promise.reject(error);
+    },
+  );
+
   apiClient.interceptors.response.use(
-    (response) => response,
+    (response) => {
+      loadingManager.hide();
+      const status = response.status;
+      const message = response.data.message;
+
+      if (message) {
+        if (status >= 200 && status < 400) {
+          toastService.success(message);
+        } else {
+          toastService.error(message);
+        }
+      }
+
+      return response;
+    },
     async (error) => {
       const originalRequest = error.config;
 
@@ -41,8 +70,14 @@ export const injectAuthInterceptor = (getToken: () => string | null, setToken: (
           }
         } catch (refreshError) {
           return Promise.reject(refreshError);
+        } finally {
+          loadingManager.hide();
         }
       }
+
+      toastService.error(error.message || messages.genericError);
+
+      loadingManager.hide();
 
       return Promise.reject(error);
     },

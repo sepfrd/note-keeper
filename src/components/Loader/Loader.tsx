@@ -3,13 +3,35 @@ import React from "react";
 
 const Loader: React.FC = () => {
   return (
-    <div className="z-50 fixed inset-0 flex items-center justify-center">
+    <div
+      className="
+        fixed
+        inset-0
+        flex
+        items-center
+        justify-center
+        pointer-events-none
+        z-50">
+      <div
+        className="
+          absolute
+          w-screen
+          h-screen
+          bg-[var(--color-bg)]
+          opacity-50"
+      />
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="200px"
         width="200px"
         viewBox="0 0 200 200"
-        className={styles.pencil}>
+        className="
+          p-0
+          m-0
+          aspect-square
+          text-[var(--color-text)]
+          rounded-full
+          z-50">
         <defs>
           <clipPath className={styles.pencilEraser}>
             <rect
@@ -122,7 +144,7 @@ const Loader: React.FC = () => {
             />
             <polygon
               points="15 0,20 10,10 10"
-              fill="hsl(223,10%,10%)"
+              fill="var(--color-text)"
             />
           </g>
         </g>

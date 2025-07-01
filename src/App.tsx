@@ -3,7 +3,7 @@ import NavBar from "@/components/NavBar";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { ROUTES } from "@/constants/routes";
 import { useAuth } from "@/hooks/useAuth";
-import { injectAuthInterceptor } from "@/services/apiClient";
+import { injectAxiosInterceptor } from "@/services/apiClient";
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
@@ -11,7 +11,7 @@ import "./App.css";
 function App() {
   const { accessToken, setAccessToken } = useAuth();
   useEffect(() => {
-    injectAuthInterceptor(() => accessToken, setAccessToken);
+    injectAxiosInterceptor(() => accessToken, setAccessToken);
   }, [accessToken, setAccessToken]);
 
   return (

@@ -1,7 +1,9 @@
 import { createContext } from "react";
 
 export type LoadingContextType = {
-  setIsLoading: (isLoading: boolean) => void;
+  showLoading: () => void;
+  hideLoading: () => void;
+  isLoading: boolean;
 };
 
 export const LoadingContext = createContext<LoadingContextType | undefined>(undefined);
