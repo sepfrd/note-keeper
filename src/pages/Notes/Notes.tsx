@@ -1,3 +1,4 @@
+import ConfirmDeleteModal from "@/components/ConfirmDeleteModal/ConfirmDeleteModal";
 import NoteCard from "@/components/NoteCard";
 import NoteEditorModal from "@/components/NoteEditorModal";
 import { noteService } from "@/services/noteService";
@@ -7,6 +8,7 @@ import { useEffect, useState } from "react";
 const Notes: React.FC = () => {
   const [notes, setNotes] = useState<NoteDto[]>();
   const [selectedNote, setSelectedNote] = useState<NoteDto | null>(null);
+  const [deletedNote, setDeletedNote] = useState<NoteDto | null>(null);
 
   useEffect(() => {
     noteService.getAllAsync().then((notes) => {
@@ -26,6 +28,11 @@ const Notes: React.FC = () => {
     setSelectedNote(null);
   };
 
+  const handleDeleteAsync = async () => {
+    await noteService.deleteAsync(deletedNote!.uuid);
+    setDeletedNote(null);
+  };
+
   return (
     <div
       className="
@@ -43,6 +50,7 @@ const Notes: React.FC = () => {
           key={note.uuid}
           note={note}
           onClick={() => setSelectedNote(note)}
+          onDelete={() => setDeletedNote(note)}
         />
       ))}
       {selectedNote && (
@@ -52,6 +60,13 @@ const Notes: React.FC = () => {
           onSaveAsync={handleSaveAsync}
         />
       )}
+
+      <ConfirmDeleteModal
+        isOpen={!!deletedNote}
+        note={deletedNote}
+        onCancel={() => setDeletedNote(null)}
+        onConfirmAsync={handleDeleteAsync}
+      />
     </div>
   );
 };

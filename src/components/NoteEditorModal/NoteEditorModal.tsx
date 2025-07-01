@@ -25,13 +25,13 @@ const NoteEditorModal: React.FC<NoteEditorModalProps> = ({ note, onClose, onSave
   return (
     <div
       className="
-		fixed
-		inset-0
-		flex
-		backdrop-blur-lg
-		items-center
-		justify-center
-		z-50">
+		    fixed
+		    inset-0
+		    flex
+		    backdrop-blur-lg
+		    items-center
+		    justify-center
+		    z-50">
       <div
         className="
 		      bg-[var(--color-muted)]
