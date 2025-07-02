@@ -92,7 +92,7 @@ const Notes: React.FC = () => {
           max-w-5xl
           mx-auto
           grid
-          [grid-template-columns:repeat(auto-fit, minmax(15rem,1fr))]
+          [grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))]
           gap-4">
         {notes?.map((note) => (
           <NoteCard

@@ -20,7 +20,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onClick, onDelete }) => {
         transition
         min-w-3xs
         max-w-xs
-        h-fit
+        h-fill
         overflow-hidden"
         onClick={onClick}>
         <h2 className="font-semibold text-lg mb-2">{note.title}</h2>
