@@ -23,7 +23,7 @@ const NewNote: React.FC = () => {
     const response = await noteService.createAsync(note);
     if (typeof response === "object") {
       if (response) {
-        navigate(PATHS.NOTES);
+        setNote({ content: "", title: "", uuid: "", userUuid: user?.uuid });
       }
     }
   };
@@ -36,7 +36,7 @@ const NewNote: React.FC = () => {
     <div
       className="
 		      w-screen
-			  h-screen
+			    h-screen
 		      p-6">
       <div
         className="

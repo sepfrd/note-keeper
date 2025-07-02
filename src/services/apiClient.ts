@@ -34,15 +34,12 @@ export const injectAxiosInterceptor = (getToken: () => string | null, setToken: 
   apiClient.interceptors.response.use(
     (response) => {
       loadingManager.hide();
+
       const status = response.status;
       const message = response.data.message;
 
-      if (message) {
-        if (status >= 200 && status < 400) {
-          toastService.success(message);
-        } else {
-          toastService.error(message);
-        }
+      if (message && status >= 500) {
+        toastService.error(message);
       }
 
       return response;
