@@ -2,7 +2,7 @@ import { ToastContainer, Zoom, type ToastOptions } from "react-toastify";
 
 const defaultToastOptions: ToastOptions = {
   position: "top-center",
-  autoClose: 1000,
+  autoClose: 1500,
   hideProgressBar: false,
   closeOnClick: false,
   rtl: false,

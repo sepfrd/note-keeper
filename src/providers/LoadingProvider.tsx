@@ -9,7 +9,7 @@ export const LoadingProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const showLoading = () => setIsLoading(true);
   const hideLoading = () => setIsLoading(false);
 
-  loadingManager.set(showLoading, hideLoading, isLoading);
+  loadingManager.set(showLoading, hideLoading);
 
   return (
     <LoadingContext.Provider value={{ showLoading, hideLoading, isLoading }}>

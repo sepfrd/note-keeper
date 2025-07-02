@@ -2,6 +2,7 @@ import { PATHS } from "@/constants/paths";
 import { useAuth } from "@/hooks/useAuth";
 import { noteService } from "@/services/noteService";
 import type { NoteDto } from "@/types/note.types";
+import { toastService } from "@/utils/toastService";
 import MDEditor from "@uiw/react-md-editor";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -21,10 +22,9 @@ const NewNote: React.FC = () => {
 
   const handleSave = async () => {
     const response = await noteService.createAsync(note);
-    if (typeof response === "object") {
-      if (response) {
-        setNote({ content: "", title: "", uuid: "", userUuid: user?.uuid });
-      }
+    if (response?.isSuccess) {
+      toastService.success(response?.message);
+      setNote({ content: "", title: "", uuid: "", userUuid: user?.uuid });
     }
   };
 

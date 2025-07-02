@@ -1,6 +1,8 @@
+import { messages } from "@/constants/messages";
 import { type User, AuthContext } from "@/contexts/AuthContext";
 import { authService } from "@/services/authService";
 import type { JwtDto } from "@/types/auth.types";
+import { toastService } from "@/utils/toastService";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useRef, useState } from "react";
 
@@ -18,6 +20,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setAccessToken(null);
       setUser(null);
       localStorage.removeItem("user");
+      toastService.success(messages.success.logoutSuccess);
     });
   };
 
@@ -60,8 +63,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       authService
         .refreshAccessTokenAsync()
         .then((response) => {
-          if (response) {
-            login(response);
+          const token = response?.isSuccess ? response.data : null;
+          if (token) {
+            login(token);
           } else {
             logout();
           }

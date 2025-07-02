@@ -1,9 +1,11 @@
 import ConfirmDeleteModal from "@/components/ConfirmDeleteModal/ConfirmDeleteModal";
 import NoteCard from "@/components/NoteCard";
 import NoteEditorModal from "@/components/NoteEditorModal";
+import { messages } from "@/constants/messages";
 import { useAuth } from "@/hooks/useAuth";
 import { noteService } from "@/services/noteService";
 import type { NoteDto } from "@/types/note.types";
+import { toastService } from "@/utils/toastService";
 import { SquarePen } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -18,7 +20,8 @@ const Notes: React.FC = () => {
   }, []);
 
   const loadNotesAsync = async () => {
-    const notes = await noteService.getAllAsync();
+    const response = await noteService.getAllAsync();
+    const notes = response?.isSuccess ? response.data : null;
     if (notes) {
       setNotes(notes);
     }
@@ -26,24 +29,40 @@ const Notes: React.FC = () => {
 
   const handleSaveAsync = async (note: NoteDto) => {
     if (note.uuid) {
-      await noteService.updateAsync({
+      const response = await noteService.updateAsync({
         uuid: note.uuid,
         newTitle: note.title,
         newContent: note.content,
       });
-    } else {
-      await noteService.createAsync(note);
-    }
 
-    await loadNotesAsync();
+      if (response?.isSuccess) {
+        toastService.success(response.message);
+        await loadNotesAsync();
+      } else {
+        toastService.error(response?.message || messages.errors.generic);
+      }
+    } else {
+      const response = await noteService.createAsync(note);
+      if (response?.isSuccess) {
+        toastService.success(response.message);
+        await loadNotesAsync();
+      } else {
+        toastService.error(response?.message || messages.errors.generic);
+      }
+    }
 
     setSelectedNote(null);
   };
 
   const handleDeleteAsync = async () => {
-    await noteService.deleteAsync(deletedNote!.uuid);
+    const response = await noteService.deleteAsync(deletedNote!.uuid);
 
-    await loadNotesAsync();
+    if (response?.isSuccess) {
+      toastService.success(response.message);
+      await loadNotesAsync();
+    } else {
+      toastService.error(response?.message || messages.errors.generic);
+    }
 
     setDeletedNote(null);
   };

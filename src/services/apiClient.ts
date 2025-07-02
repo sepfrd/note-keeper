@@ -8,6 +8,7 @@ import axios from "axios";
 const baseAxiosConfig = {
   baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
+  validateStatus: () => true,
 };
 
 const apiClient = axios.create(baseAxiosConfig);
@@ -26,7 +27,7 @@ export const injectAxiosInterceptor = (getToken: () => string | null, setToken: 
     },
     (error) => {
       loadingManager.hide();
-      toastService.error(messages.genericError);
+      toastService.error(messages.errors.generic);
       return Promise.reject(error);
     },
   );
@@ -34,14 +35,6 @@ export const injectAxiosInterceptor = (getToken: () => string | null, setToken: 
   apiClient.interceptors.response.use(
     (response) => {
       loadingManager.hide();
-
-      const status = response.status;
-      const message = response.data.message;
-
-      if (message && status >= 500) {
-        toastService.error(message);
-      }
-
       return response;
     },
     async (error) => {
@@ -72,7 +65,7 @@ export const injectAxiosInterceptor = (getToken: () => string | null, setToken: 
         }
       }
 
-      toastService.error(error.message || messages.genericError);
+      toastService.error(error.message || messages.errors.generic);
 
       loadingManager.hide();
 

@@ -1,10 +1,17 @@
 export const messages = {
-  200: "Operation completed successfully.",
-  201: "Resource created successfully.",
-  400: "Bad request.",
-  401: "Please log in to continue.",
-  403: "You do not have permission.",
-  404: "Resource not found.",
-  500: "Server error. Please try again later.",
-  genericError: "Something went wrong.",
+  info: {
+    redirecting: "You are being redirected to",
+  },
+  success: {
+    loginSuccess: "Logged in successfully.",
+    logoutSuccess: "You have been logged out.",
+  },
+  errors: {
+    unauthorized: "Please log in to continue.",
+    badRequest: "Bad request.",
+    loginError: "Invalid credentials.",
+    notFound: "Resource not found.",
+    internalServerError: "Server error. Please try again later.",
+    generic: "Something went wrong.",
+  },
 };
