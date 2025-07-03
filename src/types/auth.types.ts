@@ -1,15 +1,14 @@
-export interface LoginData {
-  token: string;
-  user: {
-    id: string;
-    name: string;
-    email: string;
-  };
-}
-
 export interface LoginDto {
   usernameOrEmail: string;
   password: string;
+}
+
+export interface SignupDto {
+  username: string;
+  password: string;
+  email: string;
+  firstName: string | null;
+  lastName: string | null;
 }
 
 export interface JwtDto {

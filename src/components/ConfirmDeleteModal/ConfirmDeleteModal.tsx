@@ -12,14 +12,19 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({ isOpen, note, o
 
   return (
     <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onCancel();
+        }
+      }}
       className="
-		fixed
-		inset-0
-		z-50
-		flex
-		items-center
-		justify-center
-		backdrop-blur-lg">
+		    fixed
+		    inset-0
+		    z-50
+		    flex
+		    items-center
+		    justify-center
+		    backdrop-blur-lg">
       <div
         className="
 	  		bg-[var(--color-bg)]

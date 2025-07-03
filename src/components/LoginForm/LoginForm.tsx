@@ -1,22 +1,21 @@
 import GoogleIcon from "@/assets/icons/google.svg?react";
-import type { LoginDto } from "@/types/login.dto";
-import { AtSign, EyeIcon, EyeOffIcon, Lock } from "lucide-react";
+import FormInput from "@/components/FormInput";
+import { messages } from "@/constants/messages";
+import { PATHS } from "@/constants/paths";
+import type { LoginDto } from "@/types/auth.types";
+import { validateEmail, validatePassword, validateUsername } from "@/utils/validationHelper";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import type { LoginFormProps } from "./LoginForm.types";
+import { AtSign, Lock } from "lucide-react";
 
 const LoginForm: React.FC<LoginFormProps> = (props) => {
   const [loginInfo, setLoginInfo] = useState<LoginDto>({
     usernameOrEmail: "",
     password: "",
   });
-  const [showPassword, setShowPassword] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginInfo((prev: LoginDto) => ({
-      ...prev,
-      [e.target.name]: e.target.type === "checkbox" ? e.target.checked : e.target.value,
-    }));
-  };
+  const navigate = useNavigate();
 
   return (
     <form
@@ -33,59 +32,50 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       bg-[var(--color-bg)]
       border-2
       border-[var(--color-text)]">
-      <div className="flex flex-row items-center justify-between gap-2.5">
-        <label>Username or Email </label>
-      </div>
-      <div className="flex flex-row items-center border border-[var(--color-text)] rounded-xl p-1 transition-all duration-200 focus-within:border-[var(--color-primary)]">
-        <AtSign
-          width={20}
-          height={20}
-        />
-        <input
-          name="usernameOrEmail"
-          type="text"
-          className="ml-2 my-1 rounded-md border-none w-[85%] h-8 focus:outline-none"
-          placeholder="Enter your username or Email"
-          value={loginInfo.usernameOrEmail}
-          onChange={handleChange}
-        />
-      </div>
-      <div className="flex flex-row items-center justify-between gap-2.5">
-        <label>Password </label>
-      </div>
-      <div className="flex flex-row items-center border border-[var(--color-text)] rounded-xl p-1 transition-all duration-200 focus-within:border-[var(--color-primary)]">
-        <Lock
-          width={20}
-          height={20}
-        />
-        <input
-          name="password"
-          type={showPassword ? "text" : "password"}
-          className="ml-2 my-1 rounded-md border-none w-[85%] h-8 focus:outline-none"
-          placeholder="Enter your Password"
-          value={loginInfo.password}
-          onChange={handleChange}
-        />
-        <button
-          type="button"
-          autoFocus={false}
-          className="cursor-pointer bg-transparent border-none"
-          onClick={() => setShowPassword((prev) => !prev)}>
-          {showPassword ? (
-            <EyeOffIcon
-              color="var(--color-text)"
-              width={20}
-              height={20}
-            />
-          ) : (
-            <EyeIcon
-              color="var(--color-text)"
-              width={20}
-              height={20}
-            />
-          )}
-        </button>
-      </div>
+      <FormInput
+        type="text"
+        name="usernameOrEmail"
+        label="Username or Email"
+        icon={
+          <AtSign
+            width={20}
+            height={20}
+          />
+        }
+        placeHolder="e.g. some_username or user@example.com"
+        value={loginInfo.usernameOrEmail}
+        errorMessage={messages.validations.usernameOrEmail}
+        required={true}
+        isValid={(input) => validateUsername(input) || validateEmail(input)}
+        setValue={(input) =>
+          setLoginInfo((prev: LoginDto) => ({
+            ...prev,
+            usernameOrEmail: input,
+          }))
+        }
+      />
+      <FormInput
+        type="password"
+        name="password"
+        label="Password"
+        icon={
+          <Lock
+            width={20}
+            height={20}
+          />
+        }
+        placeHolder="your password"
+        value={loginInfo.password}
+        errorMessage={messages.validations.loginPassword}
+        required={true}
+        isValid={validatePassword}
+        setValue={(input) =>
+          setLoginInfo((prev: LoginDto) => ({
+            ...prev,
+            password: input,
+          }))
+        }
+      />
       <button
         className="
         my-5
@@ -103,22 +93,23 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
         hover:border-[var(--color-text)]"
         onClick={(e) => {
           e.preventDefault();
-
-          props.onLogin?.(loginInfo);
+          props.onLogin(loginInfo);
         }}>
         Sign In
       </button>
       <p className="text-center text-sm my-1">
         Don't have an account?{" "}
         <button
+          type="button"
           className="text-sm ml-1 text-[var(--color-primary)] font-medium cursor-pointer"
-          onClick={props.onSignup}>
+          onClick={() => navigate(PATHS.SIGNUP)}>
           Sign Up
         </button>
       </p>
       <p className="text-center text-sm my-1">Or With</p>
       <div>
         <button
+          type="button"
           className="
           flex
           flex-row
@@ -139,7 +130,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
           hover:border-[var(--color-text)]"
           onClick={(e) => {
             e.preventDefault();
-            props.onGoogleLogin?.(e);
+            props.onGoogleLogin();
           }}>
           <GoogleIcon
             width={25}

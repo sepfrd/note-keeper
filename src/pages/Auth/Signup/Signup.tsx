@@ -1,5 +1,5 @@
-import LoginForm from "@/components/LoginForm";
-import type { LoginHandler } from "@/components/LoginForm/LoginForm.types";
+import SignupForm from "@/components/SignupForm";
+import type { SignupHandler } from "@/components/SignupForm/SignupForm.types";
 import { messages } from "@/constants/messages";
 import { PATHS } from "@/constants/paths";
 import { useAuth } from "@/hooks/useAuth";
@@ -9,8 +9,8 @@ import { toastService } from "@/utils/toastService";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
-  const { login, user } = useAuth();
+const Signup = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,12 +19,14 @@ const Login = () => {
     }
   }, [navigate, user]);
 
-  const onLogin: LoginHandler = async (dto) => {
-    const response = await authService.loginAsync(dto);
-    const token = response?.isSuccess ? response.data : null;
-    if (token) {
-      login(token);
-      toastService.success(messages.success.loginSuccess);
+  const onSignupAsync: SignupHandler = async (dto) => {
+    dto = { ...dto, firstName: dto.firstName ? dto.firstName : null, lastName: dto.lastName ? dto.lastName : null };
+
+    const response = await authService.signupAsync(dto);
+
+    if (response?.isSuccess) {
+      toastService.success(response.message);
+      navigate(PATHS.LOGIN);
     } else {
       toastService.error(response?.message || messages.errors.generic);
     }
@@ -42,12 +44,12 @@ const Login = () => {
         items-center
         overflow-hidden
         bg-[var(--color-bg)]">
-      <LoginForm
-        onLogin={onLogin}
+      <SignupForm
+        onSignup={onSignupAsync}
         onGoogleLogin={oauthService.googleLoginAsync}
       />
     </div>
   );
 };
 
-export default Login;
+export default Signup;

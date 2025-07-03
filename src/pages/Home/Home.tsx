@@ -1,11 +1,13 @@
+import { useAuth } from "@/hooks/useAuth";
 import React from "react";
 import { Link } from "react-router-dom";
 
 const Home: React.FC = () => {
+  const { isAuthenticated } = useAuth();
+
   return (
     <div
       className="
-        min-h-screen
         min-w-screen
         bg-[var(--color-bg)]
         text-[var(--color-text)]
@@ -37,9 +39,10 @@ const Home: React.FC = () => {
           Keep your thoughts organized. Sync with Notion or use your private notebook — securely and easily.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-4">
-          <Link
-            to="/login"
-            className="
+          {!isAuthenticated && (
+            <Link
+              to="/login"
+              className="
               px-6
               py-3
               bg-[var(--color-primary)]
@@ -47,12 +50,13 @@ const Home: React.FC = () => {
               rounded-xl
               font-medium
               hover:opacity-90">
-            Get Started
-          </Link>
-
-          <Link
-            to="/notes"
-            className="
+              Get Started
+            </Link>
+          )}
+          {isAuthenticated && (
+            <Link
+              to="/notes"
+              className="
               px-6
               py-3
               bg-[var(--color-primary)]
@@ -60,17 +64,15 @@ const Home: React.FC = () => {
               rounded-xl
               font-medium
               hover:opacity-90">
-            Notes
-          </Link>
+              Notes
+            </Link>
+          )}
         </div>
       </section>
-
       <section
-        id="features"
         className="
           grid
-          grid-cols-1
-          md:grid-cols-3
+          grid-cols-2
           gap-8
           px-8
           py-16
@@ -78,10 +80,6 @@ const Home: React.FC = () => {
         <FeatureCard
           title="Native Notes"
           description="Create and manage notes locally with full-text support and tagging."
-        />
-        <FeatureCard
-          title="Notion Sync"
-          description="Import and sync your Notion notes seamlessly with your NoteKeeper."
         />
         <FeatureCard
           title="Secure Login"
@@ -104,7 +102,7 @@ const Home: React.FC = () => {
 const FeatureCard: React.FC<{ title: string; description: string }> = ({ title, description }) => (
   <div
     className="
-  p-6
+        p-6
         rounded-xl
         border
         border-[var(--color-border)]

@@ -4,7 +4,7 @@ import NewNote from "@/pages/NewNote";
 import Notes from "@/pages/Notes";
 import { AlignJustifyIcon, Home, MoonIcon, SunIcon } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const NAV_LINKS = [
   { path: PATHS.HOME, element: <Home />, name: "Home", isProtected: false },
@@ -16,6 +16,8 @@ export const NavBar: React.FC = () => {
   const auth = useContext(AuthContext);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const saved = localStorage.getItem("theme") as "light" | "dark" | null;
@@ -71,18 +73,16 @@ export const NavBar: React.FC = () => {
               hover:text-[var(--color-primary)]">
               NoteKeeper
             </Link>
-
             <div className="hidden md:flex space-x-8">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className="hover:text-[var(--color-accent)] transition">
+                  className="hover:text-[var(--color-primary)] transition">
                   {link.name}
                 </Link>
               ))}
             </div>
-
             <div className="flex flex-row items-center space-x-4">
               <button
                 onClick={toggleTheme}
@@ -107,12 +107,11 @@ export const NavBar: React.FC = () => {
                     text-[var(--color-muted)]">
                     {auth.user?.email}
                   </span>
-                  <a
+                  <button
                     className="
+                    bg-[var(--color-primary)]
+                    hover:bg-[var(--color-secondary)]
                     text-[var(--color-bg)]
-                    bg-[var(--color-accent)]
-                    hidden
-                    sm:inline-block
                     font-semibold
                     px-4
                     py-1
@@ -121,34 +120,36 @@ export const NavBar: React.FC = () => {
                     cursor-pointer"
                     onClick={handleLogout}>
                     Logout
-                  </a>
+                  </button>
                 </>
               ) : (
-                <a
-                  href="/login"
+                <button
                   className="
+                  bg-[var(--color-primary)]
+                  hover:bg-[var(--color-secondary)]
                   text-[var(--color-bg)]
-                  bg-[var(--color-accent)]
-                  hidden
-                  sm:inline-block
                   font-semibold
                   px-4
                   py-1
                   rounded
                   transition
                   cursor-pointer"
-                  onClick={() => setMobileMenuOpen(false)}>
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    navigate(PATHS.LOGIN);
+                  }}>
                   Login
-                </a>
+                </button>
               )}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="
-                md:hidden
-                p-2
-                rounded
-                hover:bg-[var(--color-border)]
-                transition"
+                className={`
+                  md:hidden
+                  p-2
+                  rounded
+                  hover:bg-[var(--color-border)]
+                  transition
+                  ${mobileMenuOpen && "bg-[var(--color-border)]"}`}
                 aria-label="Toggle menu">
                 <AlignJustifyIcon />
               </button>
@@ -167,49 +168,18 @@ export const NavBar: React.FC = () => {
               {NAV_LINKS.map((link) => (
                 <Link
                   to={link.path}
-                  className=" block
-                  px-3
-                  py-2
-                  rounded
-                  hover:text-[var(--color-bg)]
-                  hover:bg-[var(--color-accent)]
-                  transition"
-                  onClick={() => setMobileMenuOpen(false)}>
-                  {link.name}
-                </Link>
-              ))}
-
-              {auth?.user != null ? (
-                <button
-                  onClick={handleLogout}
-                  className="
-                  w-full
-                  text-left
-                  px-3
-                  py-2
-                  rounded
-                  font-semibold
-                  transition
-                  text-[var(--color-bg)]
-                  bg-[var(--color-accent)]">
-                  Logout
-                </button>
-              ) : (
-                <a
-                  href="/login"
                   className="
                   block
                   px-3
                   py-2
                   rounded
-                  font-semibold
-                  transition
-                  text-[var(--color-bg)]
-                  bg-[var(--color-accent)]"
+                  hover:text-[var(--color-bg)]
+                  hover:bg-[var(--color-primary)]
+                  transition"
                   onClick={() => setMobileMenuOpen(false)}>
-                  Login
-                </a>
-              )}
+                  {link.name}
+                </Link>
+              ))}
             </div>
           </div>
         )}

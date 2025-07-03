@@ -1,9 +1,8 @@
-import type { LoginDto } from "@/types/login.dto";
+import type { LoginDto } from "@/types/auth.types";
 
 export type LoginHandler = (dto: LoginDto) => void;
 
 export interface LoginFormProps {
-  onGoogleLogin?: React.MouseEventHandler<HTMLButtonElement>;
-  onLogin?: LoginHandler;
-  onSignup?: React.MouseEventHandler<HTMLButtonElement>;
+  onGoogleLogin: () => Promise<void>;
+  onLogin: LoginHandler;
 }

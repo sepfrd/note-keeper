@@ -28,6 +28,11 @@ const Notes: React.FC = () => {
   };
 
   const handleSaveAsync = async (note: NoteDto) => {
+    if (!note.title || !note.content) {
+      toastService.error(messages.validations.emptyNote);
+      return;
+    }
+
     if (note.uuid) {
       const response = await noteService.updateAsync({
         uuid: note.uuid,
@@ -105,7 +110,6 @@ const Notes: React.FC = () => {
       <div
         className="
           min-w-full
-          min-h-full
           px-4
           mt-4
           max-w-5xl

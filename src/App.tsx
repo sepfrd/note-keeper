@@ -16,7 +16,10 @@ function App() {
 
   return (
     <>
-      <GlobalToast />
+      <GlobalToast
+        position="bottom-left"
+        autoClose={2000}
+      />
       <NavBar />
       <Routes>
         {ROUTES.map((route) => {

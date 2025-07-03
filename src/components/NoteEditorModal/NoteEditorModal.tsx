@@ -17,13 +17,15 @@ const NoteEditorModal: React.FC<NoteEditorModalProps> = ({ note, onClose, onSave
     setLocalNote({ ...localNote, content: val || "" });
   };
 
-  const handleSave = async () => {
-    await onSaveAsync(localNote);
-    onClose();
-  };
+  const handleSave = async () => await onSaveAsync(localNote);
 
   return (
     <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          onClose();
+        }
+      }}
       className="
 		    fixed
 		    inset-0
