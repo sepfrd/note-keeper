@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
       }),
       tailwindcss(),
     ],
-    base: env.VITE_HOST_URL || "/",
+    base: env.VITE_BASE_URL || "/",
     server: {
       port: 3000,
     },
