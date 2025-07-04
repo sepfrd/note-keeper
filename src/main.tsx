@@ -6,11 +6,10 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
 import "./index.css";
-import { CONFIG } from "@/constants/config.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter basename={CONFIG.BASE_URL || "/"}>
+    <BrowserRouter basename={import.meta.env.BASE_URL || "/"}>
       <LoadingProvider>
         <AuthProvider>
           <ToastProvider>
