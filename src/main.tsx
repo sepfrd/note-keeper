@@ -10,7 +10,7 @@ import { CONFIG } from "@/constants/config.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter basename={CONFIG.BASE_PATH || "/"}>
+    <BrowserRouter basename={CONFIG.BASE_URL || "/"}>
       <LoadingProvider>
         <AuthProvider>
           <ToastProvider>
