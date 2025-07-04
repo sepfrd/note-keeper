@@ -5,8 +5,6 @@ export async function safeRequest<T>(requestFunction: () => Promise<{ data: T }>
   try {
     const response = await requestFunction();
     const apiResponse = response.data as T;
-    console.log(response);
-    console.log(apiResponse);
     if (apiResponse) {
       return apiResponse;
     } else {
