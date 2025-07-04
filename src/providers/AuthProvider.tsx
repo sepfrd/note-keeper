@@ -21,6 +21,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(null);
       localStorage.removeItem("user");
       toastService.success(messages.success.logoutSuccess);
+      window.location.reload();
     });
   };
 
