@@ -48,7 +48,7 @@ export const injectAxiosInterceptor = (getToken: () => string | null, setToken: 
             API_ENDPOINTS.REFRESH_TOKEN,
             {},
             {
-              baseURL: CONFIG.API_BASE_URL,
+              baseURL: CONFIG.API_URL,
               withCredentials: true,
             },
           );
