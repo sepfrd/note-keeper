@@ -276,11 +276,34 @@ const Notes: React.FC = () => {
         ))}
       </div>
       {selectedNote && (
-        <NoteEditorModal
-          note={selectedNote}
-          onClose={() => setSelectedNote(null)}
-          onSaveAsync={handleSaveAsync}
-        />
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setSelectedNote(null);
+            }
+          }}
+          className="
+		        fixed
+		        inset-0
+		        flex
+		        backdrop-blur-lg
+		        items-center
+		        justify-center
+		        z-50">
+          <div
+            className="
+		      bg-[var(--color-muted)]
+		      max-w-2xl
+		      w-full
+		      rounded-xl
+		      p-6">
+            <NoteEditorModal
+              note={selectedNote}
+              onClose={() => setSelectedNote(null)}
+              onSaveAsync={handleSaveAsync}
+            />
+          </div>
+        </div>
       )}
       <ConfirmDeleteModal
         isOpen={!!deletedNote}
