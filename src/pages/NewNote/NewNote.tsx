@@ -45,6 +45,7 @@ const NewNote: React.FC = () => {
 			      items-center
 			      mb-4">
         <input
+          placeholder="Title"
           className="
               w-full
               font-semibold

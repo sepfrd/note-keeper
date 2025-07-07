@@ -65,6 +65,11 @@ button {
 }
 
 :root {
+  --color-alice-blue: #ebf2faff;
+  --color-gunmetal: #242b38;
+}
+
+:root {
   --color-bg: #ffffff;
   --color-text: #1f2937;
   --color-primary: #3b82f6;
@@ -93,21 +98,5 @@ button {
     background-color: var(--color-bg);
     color: var(--color-text);
     font-family: var(--font-sans);
-  }
-
-  .border {
-    border-color: var(--color-border);
-  }
-
-  .text-primary {
-    color: var(--color-primary);
-  }
-
-  .bg-primary {
-    background-color: var(--color-primary);
-  }
-
-  .text-muted {
-    color: var(--color-muted);
   }
 }

@@ -48,6 +48,7 @@ const NoteEditorModal: React.FC<NoteEditorModalProps> = ({ note, onClose, onSave
 			      items-center
 			      mb-4">
           <input
+            placeholder="Title"
             className="
               w-full
               text-[var(--color-bg)]

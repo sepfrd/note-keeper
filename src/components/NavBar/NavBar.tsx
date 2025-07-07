@@ -73,7 +73,7 @@ export const NavBar: React.FC = () => {
               hover:text-[var(--color-primary)]">
               NoteKeeper
             </Link>
-            <div className="hidden md:flex space-x-8">
+            <div className="hidden md:flex flex-row flex-2 ml-8 space-x-8">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.path}

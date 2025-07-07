@@ -16,13 +16,10 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onClick, onDelete }) => {
         border-[var(--color-border)]
         hover:shadow-md
         hover:border-[var(--color-primary)]
-        hover:scale-105
+        hover:scale-102
         transition-all
-        min-w-3xs
-        max-w-xs
-        min-h-40
-        max-h-60
-        h-fit
+        max-w-80
+        aspect-square
         overflow-hidden"
       onClick={onClick}>
       <h2 className="font-semibold text-lg mb-2">{note.title}</h2>
