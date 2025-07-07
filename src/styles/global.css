@@ -67,6 +67,8 @@ button {
 :root {
   --color-alice-blue: #ebf2faff;
   --color-gunmetal: #242b38;
+  --color-darker-green: #45a049;
+  --color-lighter-green: #4caf50;
 }
 
 :root {

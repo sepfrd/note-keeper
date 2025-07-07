@@ -1,10 +1,11 @@
 import ConfirmDeleteModal from "@/components/ConfirmDeleteModal/ConfirmDeleteModal";
 import NoteCard from "@/components/NoteCard";
 import NoteEditorModal from "@/components/NoteEditorModal";
+import NoteFilterPanel from "@/components/NoteFilterPanel";
 import { messages } from "@/constants/messages";
 import { useAuth } from "@/hooks/useAuth";
 import { noteService } from "@/services/noteService";
-import type { NoteDto } from "@/types/note.types";
+import type { NoteDto, NoteFilterDto } from "@/types/note.types";
 import type { PaginationDto } from "@/types/pagination.types";
 import { toastService } from "@/utils/toastService";
 import { Plus } from "lucide-react";
@@ -14,20 +15,21 @@ const Notes: React.FC = () => {
   const [notes, setNotes] = useState<NoteDto[]>();
   const [selectedNote, setSelectedNote] = useState<NoteDto | null>(null);
   const [deletedNote, setDeletedNote] = useState<NoteDto | null>(null);
-  const { user } = useAuth();
   const [pagination, setPagination] = useState<PaginationDto>({ pageNumber: 1, pageSize: 10 });
   const [totalPages, setTotalPages] = useState(0);
 
+  const { user } = useAuth();
+
   useEffect(() => {
-    loadNotesAsync(pagination);
+    loadNotesAsync({ ...pagination });
   }, [pagination]);
 
-  const loadNotesAsync = async (pagination: PaginationDto) => {
-    const response = await noteService.getAllAsync(pagination);
+  const loadNotesAsync = async (filters: NoteFilterDto) => {
+    const response = await noteService.getAllAsync(filters);
     const notes = response?.isSuccess ? response.data : null;
     if (notes) {
       setNotes(notes);
-      setTotalPages(Math.ceil(response!.totalCount / pagination.pageSize));
+      setTotalPages(Math.ceil(response!.totalCount / (filters.pageSize || 10)));
     }
   };
 
@@ -46,7 +48,7 @@ const Notes: React.FC = () => {
 
       if (response?.isSuccess) {
         toastService.success(response.message);
-        await loadNotesAsync(pagination);
+        await loadNotesAsync({ ...pagination });
       } else {
         toastService.error(response?.message || messages.errors.generic);
       }
@@ -54,7 +56,7 @@ const Notes: React.FC = () => {
       const response = await noteService.createAsync(note);
       if (response?.isSuccess) {
         toastService.success(response.message);
-        await loadNotesAsync(pagination);
+        await loadNotesAsync({ ...pagination });
       } else {
         toastService.error(response?.message || messages.errors.generic);
       }
@@ -68,7 +70,7 @@ const Notes: React.FC = () => {
 
     if (response?.isSuccess) {
       toastService.success(response.message);
-      await loadNotesAsync(pagination);
+      await loadNotesAsync({ ...pagination });
     } else {
       toastService.error(response?.message || messages.errors.generic);
     }
@@ -256,6 +258,9 @@ const Notes: React.FC = () => {
           </button>
         </div>
       </div>
+
+      <NoteFilterPanel onApply={(filters) => loadNotesAsync({ ...filters, ...pagination } as NoteFilterDto)} />
+
       <div
         className="
           min-w-full
