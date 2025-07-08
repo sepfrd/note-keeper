@@ -134,11 +134,12 @@ const NoteFilterPanel: React.FC<NoteFiltersPanelProps> = (props) => {
           <button
             onClick={() => props.onApply(filters)}
             className="
-			  	bg-[var(--color-darker-green)]
-				px-4
-				py-2
-				rounded-full
-				hover:bg-[var(--color-lighter-green)]">
+              text-[var(--color-alice-blue)]
+              bg-[var(--color-secondary)]
+				      px-4
+				      py-2
+				      rounded-full
+				      hover:bg-[var(--color-primary)]">
             Apply Filters
           </button>
           <button
