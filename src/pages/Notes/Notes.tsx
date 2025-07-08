@@ -8,7 +8,7 @@ import { noteService } from "@/services/noteService";
 import type { NoteDto, NoteFilterDto } from "@/types/note.types";
 import type { PaginationDto } from "@/types/pagination.types";
 import { toastService } from "@/utils/toastService";
-import { Plus } from "lucide-react";
+import { FunnelPlus, FunnelX, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const Notes: React.FC = () => {
@@ -17,6 +17,8 @@ const Notes: React.FC = () => {
   const [deletedNote, setDeletedNote] = useState<NoteDto | null>(null);
   const [pagination, setPagination] = useState<PaginationDto>({ pageNumber: 1, pageSize: 10 });
   const [totalPages, setTotalPages] = useState(0);
+  const [showFilters, setShowFilters] = useState(false);
+  const [shouldResetFilterPanel, setshouldResetFilterPanel] = useState(false);
 
   const { user } = useAuth();
 
@@ -122,20 +124,26 @@ const Notes: React.FC = () => {
             cursor-pointer"
         />
       </button>
+      {/* Pagination */}
       <div
         className="
+          flex
+          flex-col
+          sticky
+          top-18
+          z-10">
+        <div
+          className="
+            relative
             text-[var(--color-alice-blue)]
             flex
-            sticky
-            top-18
             w-full
-            z-10
             flex-row
             items-center
             justify-center
             my-2">
-        <div
-          className="
+          <div
+            className="
               flex
               flex-row
               items-center
@@ -143,10 +151,19 @@ const Notes: React.FC = () => {
               p-2
               rounded-full
               bg-[var(--color-text)]">
-          <button
-            disabled={pagination.pageNumber === 1}
-            onClick={() => navigateTo(pagination.pageNumber - 1)}
-            className="
+            <button
+              onClick={() => setShowFilters((prev) => !prev)}
+              className="
+			        p-2
+			        bg-[var(--color-secondary)]
+			        rounded-full
+			        hover:bg-[var(--color-primary)]">
+              {showFilters ? <FunnelX /> : <FunnelPlus className="max-h-fit" />}
+            </button>
+            <button
+              disabled={pagination.pageNumber === 1}
+              onClick={() => navigateTo(pagination.pageNumber - 1)}
+              className="
               text-center
               mx-4
               px-2
@@ -158,91 +175,93 @@ const Notes: React.FC = () => {
               bg-[var(--color-secondary)]
               hover:bg-[var(--color-primary)]
               disabled:opacity-50">
-            Previous
-          </button>
-          <div
-            className="
-                text-center
-                mx-4
-                px-2
-                py-1
-                min-w-[8rem]
-                rounded-full
-                border-none
-                bg-[var(--color-secondary)]
-                disabled:opacity-50">
-            <label htmlFor="pageSize">Page Size: </label>
-            <select
-              name="pageSize"
+              Previous
+            </button>
+            <div
               className="
-                cursor-pointer
-                bg-[var(--color-primary)]
-                border-none
-                rounded-full"
-              id="pageSize"
-              onChange={(e) => {
-                const value = Number(e.target.value);
-
-                if (!isNaN(value)) {
-                  setPagination({
-                    pageNumber: 1,
-                    pageSize: value,
-                  });
-                }
-              }}>
-              <option value={10}>10</option>
-              <option value={25}>25</option>
-              <option value={50}>50</option>
-              <option value={100}>100</option>
-            </select>
-          </div>
-          <span
-            className="
                 text-center
-                bg-[var(--color-secondary)]
                 mx-4
                 px-2
                 py-1
                 min-w-[8rem]
                 rounded-full
                 border-none
+                bg-[var(--color-secondary)]
                 disabled:opacity-50">
-            Page{" "}
-            <span>
+              <label htmlFor="pageSize">Page Size: </label>
               <select
-                name="pageNumber"
+                name="pageSize"
                 className="
                 cursor-pointer
                 bg-[var(--color-primary)]
                 border-none
                 rounded-full"
-                id="pageNumber"
-                value={pagination.pageNumber}
+                id="pageSize"
                 onChange={(e) => {
                   const value = Number(e.target.value);
 
                   if (!isNaN(value)) {
                     setPagination({
-                      ...pagination,
-                      pageNumber: value,
+                      pageNumber: 1,
+                      pageSize: value,
                     });
                   }
+
+                  setshouldResetFilterPanel((prev) => !prev);
                 }}>
-                {Array.from({ length: totalPages }, (_, i) => (
-                  <option
-                    key={i + 1}
-                    value={i + 1}>
-                    {i + 1}
-                  </option>
-                ))}
+                <option value={10}>10</option>
+                <option value={25}>25</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
               </select>
-            </span>{" "}
-            of <span>{totalPages}</span>
-          </span>
-          <button
-            disabled={pagination.pageNumber === totalPages}
-            onClick={() => navigateTo(pagination.pageNumber + 1)}
-            className="
+            </div>
+            <span
+              className="
+                text-center
+                bg-[var(--color-secondary)]
+                mx-4
+                px-2
+                py-1
+                min-w-[8rem]
+                rounded-full
+                border-none
+                disabled:opacity-50">
+              Page{" "}
+              <span>
+                <select
+                  name="pageNumber"
+                  className="
+                    cursor-pointer
+                    bg-[var(--color-primary)]
+                    border-none
+                    rounded-full"
+                  id="pageNumber"
+                  value={pagination.pageNumber}
+                  onChange={(e) => {
+                    const value = Number(e.target.value);
+
+                    if (!isNaN(value)) {
+                      setPagination({
+                        ...pagination,
+                        pageNumber: value,
+                      });
+                    }
+                  }}>
+                  {Array.from({ length: totalPages }, (_, i) => (
+                    <option
+                      key={i + 1}
+                      value={i + 1}>
+                      {i + 1}
+                    </option>
+                  ))}
+                </select>
+              </span>{" "}
+              of <span>{totalPages}</span>
+            </span>
+            <button
+              disabled={pagination.pageNumber === totalPages}
+              onClick={() => navigateTo(pagination.pageNumber + 1)}
+              className="
                 text-center
                 mx-4
                 px-2
@@ -254,13 +273,29 @@ const Notes: React.FC = () => {
                 rounded-full
                 cursor-pointer
                 disabled:opacity-50">
-            Next
-          </button>
+              Next
+            </button>
+          </div>
+        </div>
+        <div
+          className={`
+            flex
+            flex-col
+            items-center
+            absolute
+            top-full
+            right-0
+            left-0
+            transition-all
+            ease-linear
+            duration-300
+            ${showFilters ? "opacity-100 max-h-fit pointer-events-auto" : "opacity-0 max-h-0 pointer-events-none"}`}>
+          <NoteFilterPanel
+            onApply={(filters) => loadNotesAsync({ ...filters, ...pagination } as NoteFilterDto)}
+            shouldReset={shouldResetFilterPanel}
+          />
         </div>
       </div>
-
-      <NoteFilterPanel onApply={(filters) => loadNotesAsync({ ...filters, ...pagination } as NoteFilterDto)} />
-
       <div
         className="
           min-w-full

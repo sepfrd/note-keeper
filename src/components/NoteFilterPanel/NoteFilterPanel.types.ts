@@ -1,4 +1,4 @@
-export interface NoteFilterPanelProps {
+export interface NoteFilters {
   title?: string;
   content?: string;
   createdAtStartDate?: string;
@@ -7,7 +7,12 @@ export interface NoteFilterPanelProps {
   updatedAtEndDate?: string;
 }
 
-export type NoteFilterField = keyof NoteFilterPanelProps;
+export interface NoteFiltersPanelProps {
+  onApply: (filters: NoteFilters) => void;
+  shouldReset: boolean;
+}
+
+export type NoteFilterField = keyof NoteFilters;
 
 export const noteFilterFieldMeta: Record<NoteFilterField, { label: string; type: "text" | "number" | "date" }> = {
   title: { label: "Title", type: "text" },

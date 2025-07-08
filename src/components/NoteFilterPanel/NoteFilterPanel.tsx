@@ -1,12 +1,12 @@
-import type { NoteFilterPanelProps } from "@/components/NoteFilterPanel/NoteFilterPanel.types";
-import { FunnelPlus, FunnelX } from "lucide-react";
-import React, { useState } from "react";
+import type { NoteFilters, NoteFiltersPanelProps } from "@/components/NoteFilterPanel/NoteFilterPanel.types";
+import React, { useEffect, useState } from "react";
 
-const NoteFilterPanel: React.FC<{
-  onApply: (filters: NoteFilterPanelProps) => void;
-}> = ({ onApply }) => {
-  const [showFilters, setShowFilters] = useState(false);
-  const [filters, setFilters] = useState<NoteFilterPanelProps>({});
+const NoteFilterPanel: React.FC<NoteFiltersPanelProps> = (props) => {
+  const [filters, setFilters] = useState<NoteFilters>({});
+
+  useEffect(() => {
+    resetFilters();
+  }, [props.shouldReset]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -22,107 +22,138 @@ const NoteFilterPanel: React.FC<{
   return (
     <div
       className="
-			w-full
-			text-[var(--color-bg)]
-			flex
-			flex-col
-			items-center
-			max-w-4xl
-			mx-auto
-			mb-4">
-      <button
-        onClick={() => setShowFilters((prev) => !prev)}
-        className="
-			px-4
-			py-2
-			bg-[var(--color-secondary)]
-			rounded-full
-			hover:bg-[var(--color-primary)]">
-        {showFilters ? <FunnelX /> : <FunnelPlus />}
-      </button>
-
+			    w-full
+			    text-[var(--color-bg)]
+			    flex
+			    flex-col
+          items-center">
       {/* Filter Panel */}
-      {showFilters && (
+      <div
+        className="
+				  mt-4
+				  p-4
+				  bg-[var(--color-text)]
+				  rounded-lg">
         <div
           className="
-				mt-4
-				p-4
-				bg-[var(--color-text)]
-				rounded-lg">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Text Fields */}
+            flex
+            flex-col
+            justify-between
+            items-center">
+          {/* Text Fields */}
+          <div
+            className="
+              grid
+              items-center
+              grid-cols-[5rem_1fr]
+              my-1
+              w-full">
+            <label className="mr-4 text-left">Title:</label>
             <input
               name="title"
               placeholder="Title"
               value={filters.title || ""}
               onChange={handleChange}
-              className="border rounded px-3 py-2"
+              className="border rounded px-3 py-2 w-full"
             />
+          </div>
+          <div
+            className="
+              grid
+              items-center
+              my-1
+              grid-cols-[5rem_1fr]
+              w-full">
+            <label className="mr-4 text-left">Content:</label>
             <input
               name="content"
               placeholder="Content"
               value={filters.content || ""}
               onChange={handleChange}
-              className="border rounded px-3 py-2"
-            />
-
-            {/* Date Fields */}
-            <input
-              name="createdAtStartDate"
-              type="date"
-              value={filters.createdAtStartDate || ""}
-              onChange={handleChange}
-              className="border rounded px-3 py-2"
-            />
-            <input
-              name="createdAtEndDate"
-              type="date"
-              value={filters.createdAtEndDate || ""}
-              onChange={handleChange}
-              className="border rounded px-3 py-2"
-            />
-            <input
-              name="updatedAtStartDate"
-              type="date"
-              value={filters.updatedAtStartDate || ""}
-              onChange={handleChange}
-              className="border rounded px-3 py-2"
-            />
-            <input
-              name="updatedAtEndDate"
-              type="date"
-              value={filters.updatedAtEndDate || ""}
-              onChange={handleChange}
-              className="border rounded px-3 py-2"
+              className="border rounded px-3 py-2 w-full"
             />
           </div>
-
-          {/* Actions */}
-          <div className="mt-4 flex gap-4">
-            <button
-              onClick={() => onApply(filters)}
+          {/* Date Fields */}
+          <div className="flex flex-col w-full">
+            <div
               className="
+                grid
+                grid-cols-[repeat(5,auto)]
+                gap-2
+                w-full
+                my-2
+                items-center">
+              <label>Created At</label>
+              <label className="text-[var(--color-muted)]">from</label>
+              <input
+                name="createdAtStartDate"
+                type="date"
+                value={filters.createdAtStartDate || ""}
+                onChange={handleChange}
+                className="border rounded px-3 py-2"
+              />
+              <label className="text-[var(--color-muted)]">to</label>
+              <input
+                name="createdAtEndDate"
+                type="date"
+                value={filters.createdAtEndDate || ""}
+                onChange={handleChange}
+                className="border rounded px-3 py-2"
+              />
+            </div>
+            <div
+              className="
+                flex
+                flex-row
+                w-full
+                my-2
+                items-center
+                justify-between">
+              <label>Updated At</label>
+              <label className="text-[var(--color-muted)]">from</label>
+              <input
+                name="updatedAtStartDate"
+                type="date"
+                value={filters.updatedAtStartDate || ""}
+                onChange={handleChange}
+                className="border rounded px-3 py-2"
+              />
+              <label className="text-[var(--color-muted)]">to</label>
+              <input
+                name="updatedAtEndDate"
+                type="date"
+                value={filters.updatedAtEndDate || ""}
+                onChange={handleChange}
+                className="border rounded px-3 py-2"
+              />
+            </div>
+          </div>
+        </div>
+        {/* Actions */}
+        <div className="mt-4 flex gap-2">
+          <button
+            onClick={() => props.onApply(filters)}
+            className="
 			  	bg-[var(--color-darker-green)]
 				px-4
 				py-2
 				rounded-full
 				hover:bg-[var(--color-lighter-green)]">
-              Apply Filters
-            </button>
-            <button
-              onClick={resetFilters}
-              className="
+            Apply Filters
+          </button>
+          <button
+            onClick={resetFilters}
+            className="
 			  	text-[var(--color-text)]
 			  	bg-[var(--color-bg)]
 				px-4
 				py-2
 				rounded-full
 				hover:bg-[var(--color-muted)]">
-              Reset
-            </button>
-          </div>
+            Reset
+          </button>
         </div>
-      )}
+      </div>
     </div>
   );
 };
