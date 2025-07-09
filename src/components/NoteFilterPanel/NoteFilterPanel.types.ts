@@ -7,7 +7,7 @@ export interface NoteFilters {
   updatedAtEndDate?: string;
 }
 
-export interface NoteFiltersPanelProps {
+export interface NoteFilterPanelProps {
   onApply: (filters: NoteFilters) => void;
   shouldReset: boolean;
 }

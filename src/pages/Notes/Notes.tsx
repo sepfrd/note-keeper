@@ -2,13 +2,15 @@ import ConfirmDeleteModal from "@/components/ConfirmDeleteModal/ConfirmDeleteMod
 import NoteCard from "@/components/NoteCard";
 import NoteEditorModal from "@/components/NoteEditorModal";
 import NoteFilterPanel from "@/components/NoteFilterPanel";
+import NoteSortPanel from "@/components/NoteSortPanel";
+import type { NoteSort } from "@/components/NoteSortPanel/NoteSortPanel.types";
 import { messages } from "@/constants/messages";
 import { useAuth } from "@/hooks/useAuth";
 import { noteService } from "@/services/noteService";
 import type { NoteDto, NoteFilterDto } from "@/types/note.types";
 import type { PaginationDto } from "@/types/pagination.types";
 import { toastService } from "@/utils/toastService";
-import { FunnelPlus, FunnelX, Plus } from "lucide-react";
+import { ArrowDownWideNarrow, ArrowUpNarrowWide, FunnelPlus, FunnelX, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const Notes: React.FC = () => {
@@ -18,8 +20,8 @@ const Notes: React.FC = () => {
   const [pagination, setPagination] = useState<PaginationDto>({ pageNumber: 1, pageSize: 10 });
   const [totalPages, setTotalPages] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
+  const [showSort, setShowSort] = useState(false);
   const [shouldResetFilterPanel, setshouldResetFilterPanel] = useState(false);
-
   const { user } = useAuth();
 
   useEffect(() => {
@@ -34,6 +36,41 @@ const Notes: React.FC = () => {
       setTotalPages(Math.ceil(response!.totalCount / (filters.pageSize || 10)));
     }
   };
+
+  function sortNotes(notes: NoteDto[], sort: NoteSort): NoteDto[] {
+    return [...notes].sort((a, b) => {
+      if (sort.field === "none") {
+        return 0;
+      }
+
+      let aValue = a[sort.field];
+      let bValue = b[sort.field];
+
+      if (aValue == null && bValue == null) {
+        return 0;
+      }
+      if (aValue == null) {
+        return 1;
+      }
+      if (bValue == null) {
+        return -1;
+      }
+
+      if (sort.field === "createdAt" || sort.field === "updatedAt") {
+        aValue = new Date(aValue);
+        bValue = new Date(bValue);
+      }
+
+      if (aValue < bValue) {
+        return sort.direction === "asc" ? -1 : 1;
+      }
+      if (aValue > bValue) {
+        return sort.direction === "asc" ? 1 : -1;
+      }
+
+      return 0;
+    });
+  }
 
   const handleSaveAsync = async (note: NoteDto) => {
     if (!note.title || !note.content) {
@@ -95,6 +132,12 @@ const Notes: React.FC = () => {
 
   return (
     <div
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          setShowFilters(false);
+          setShowSort(false);
+        }
+      }}
       className="
         flex
         flex-col
@@ -154,11 +197,25 @@ const Notes: React.FC = () => {
             <button
               onClick={() => setShowFilters((prev) => !prev)}
               className="
+              mr-1
 			        p-2
 			        bg-[var(--color-secondary)]
 			        rounded-full
 			        hover:bg-[var(--color-primary)]">
               {showFilters ? <FunnelX /> : <FunnelPlus className="max-h-fit" />}
+            </button>
+            <button
+              onClick={() => {
+                setShowSort((prev) => !prev);
+                return;
+              }}
+              className="
+              ml-1
+			        p-2
+			        bg-[var(--color-secondary)]
+			        rounded-full
+			        hover:bg-[var(--color-primary)]">
+              {showSort ? <ArrowUpNarrowWide /> : <ArrowDownWideNarrow className="max-h-fit" />}
             </button>
             <button
               disabled={pagination.pageNumber === 1}
@@ -293,6 +350,29 @@ const Notes: React.FC = () => {
           <NoteFilterPanel
             onApply={(filters) => loadNotesAsync({ ...filters, ...pagination } as NoteFilterDto)}
             shouldReset={shouldResetFilterPanel}
+          />
+        </div>
+        <div
+          className={`
+            flex
+            flex-col
+            items-center
+            absolute
+            top-full
+            right-0
+            left-0
+            transition-all
+            ease-linear
+            duration-300
+            ${showSort ? "opacity-100 max-h-fit pointer-events-auto" : "opacity-0 max-h-0 pointer-events-none"}`}>
+          <NoteSortPanel
+            onApply={(sort) => {
+              if (notes && sort.field !== "none") {
+                const sortedNotes = sortNotes(notes, sort);
+                setNotes(sortedNotes);
+              }
+            }}
+            onCancel={() => setShowSort(false)}
           />
         </div>
       </div>

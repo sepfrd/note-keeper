@@ -1,12 +1,16 @@
 export interface NoteDto {
-  userUuid?: string;
   uuid: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  userUuid?: string;
   title: string;
   content: string;
 }
 
 export interface UpdatedNoteDto {
   uuid: string;
+  createdAt?: Date;
+  updatedAt?: Date;
   newTitle: string;
   newContent: string;
 }

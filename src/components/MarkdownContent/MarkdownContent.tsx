@@ -5,7 +5,7 @@ import remarkGfm from "remark-gfm";
 
 const MarkdownContent: React.FC<{ content: string }> = ({ content }) => {
   return (
-    <div className="overflow-hidden h-full w-full">
+    <div className="overflow-hidden h-full w-full mx-2">
       <ReactMarkdown
         children={content}
         remarkPlugins={[remarkGfm]}

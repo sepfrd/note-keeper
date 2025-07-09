@@ -1,7 +1,7 @@
-import type { NoteFilters, NoteFiltersPanelProps } from "@/components/NoteFilterPanel/NoteFilterPanel.types";
+import type { NoteFilterPanelProps, NoteFilters } from "@/components/NoteFilterPanel/NoteFilterPanel.types";
 import React, { useEffect, useState } from "react";
 
-const NoteFilterPanel: React.FC<NoteFiltersPanelProps> = (props) => {
+const NoteFilterPanel: React.FC<NoteFilterPanelProps> = (props) => {
   const [filters, setFilters] = useState<NoteFilters>({});
 
   useEffect(() => {
@@ -87,7 +87,7 @@ const NoteFilterPanel: React.FC<NoteFiltersPanelProps> = (props) => {
               <label className="text-[var(--color-muted)]">from</label>
               <input
                 name="createdAtStartDate"
-                type="date"
+                type="datetime-local"
                 value={filters.createdAtStartDate || ""}
                 onChange={handleChange}
                 className="border rounded px-3 py-2"
@@ -95,7 +95,7 @@ const NoteFilterPanel: React.FC<NoteFiltersPanelProps> = (props) => {
               <label className="text-[var(--color-muted)]">to</label>
               <input
                 name="createdAtEndDate"
-                type="date"
+                type="datetime-local"
                 value={filters.createdAtEndDate || ""}
                 onChange={handleChange}
                 className="border rounded px-3 py-2"
@@ -113,7 +113,7 @@ const NoteFilterPanel: React.FC<NoteFiltersPanelProps> = (props) => {
               <label className="text-[var(--color-muted)]">from</label>
               <input
                 name="updatedAtStartDate"
-                type="date"
+                type="datetime-local"
                 value={filters.updatedAtStartDate || ""}
                 onChange={handleChange}
                 className="border rounded px-3 py-2"
@@ -121,7 +121,7 @@ const NoteFilterPanel: React.FC<NoteFiltersPanelProps> = (props) => {
               <label className="text-[var(--color-muted)]">to</label>
               <input
                 name="updatedAtEndDate"
-                type="date"
+                type="datetime-local"
                 value={filters.updatedAtEndDate || ""}
                 onChange={handleChange}
                 className="border rounded px-3 py-2"
