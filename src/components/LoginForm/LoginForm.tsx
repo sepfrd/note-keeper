@@ -4,10 +4,10 @@ import { messages } from "@/constants/messages";
 import { PATHS } from "@/constants/paths";
 import type { LoginDto } from "@/types/auth.types";
 import { validateEmail, validatePassword, validateUsername } from "@/utils/validationHelper";
+import { AtSign, Lock } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { LoginFormProps } from "./LoginForm.types";
-import { AtSign, Lock } from "lucide-react";
 
 const LoginForm: React.FC<LoginFormProps> = (props) => {
   const [loginInfo, setLoginInfo] = useState<LoginDto>({

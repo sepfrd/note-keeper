@@ -33,13 +33,10 @@ const Login = () => {
   return (
     <div
       className="
-        min-h-screen
-        min-w-screen
-        m-0
-        p-0
+        m-2
+        p-2
         flex
-        justify-center
-        items-center
+        flex-col
         overflow-hidden
         bg-[var(--color-bg)]">
       <LoginForm
