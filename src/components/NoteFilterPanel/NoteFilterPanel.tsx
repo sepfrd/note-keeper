@@ -1,4 +1,5 @@
 import type { NoteFilterPanelProps, NoteFilters } from "@/components/NoteFilterPanel/NoteFilterPanel.types";
+import { convertToLocalISOString, removeTimezone } from "@/utils/dateHelper";
 import React, { useEffect, useState } from "react";
 
 const NoteFilterPanel: React.FC<NoteFilterPanelProps> = (props) => {
@@ -9,11 +10,11 @@ const NoteFilterPanel: React.FC<NoteFilterPanelProps> = (props) => {
   }, [props.shouldReset]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
 
     setFilters((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === "datetime-local" ? convertToLocalISOString(new Date(value)) : value,
     }));
   };
 
@@ -88,7 +89,7 @@ const NoteFilterPanel: React.FC<NoteFilterPanelProps> = (props) => {
               <input
                 name="createdAtStartDate"
                 type="datetime-local"
-                value={filters.createdAtStartDate || ""}
+                value={(filters.createdAtStartDate && removeTimezone(filters.createdAtStartDate)) || ""}
                 onChange={handleChange}
                 className="border rounded px-3 py-2"
               />
@@ -96,7 +97,7 @@ const NoteFilterPanel: React.FC<NoteFilterPanelProps> = (props) => {
               <input
                 name="createdAtEndDate"
                 type="datetime-local"
-                value={filters.createdAtEndDate || ""}
+                value={(filters.createdAtEndDate && removeTimezone(filters.createdAtEndDate)) || ""}
                 onChange={handleChange}
                 className="border rounded px-3 py-2"
               />
@@ -114,7 +115,7 @@ const NoteFilterPanel: React.FC<NoteFilterPanelProps> = (props) => {
               <input
                 name="updatedAtStartDate"
                 type="datetime-local"
-                value={filters.updatedAtStartDate || ""}
+                value={(filters.updatedAtStartDate && removeTimezone(filters.updatedAtStartDate)) || ""}
                 onChange={handleChange}
                 className="border rounded px-3 py-2"
               />
@@ -122,7 +123,7 @@ const NoteFilterPanel: React.FC<NoteFilterPanelProps> = (props) => {
               <input
                 name="updatedAtEndDate"
                 type="datetime-local"
-                value={filters.updatedAtEndDate || ""}
+                value={(filters.updatedAtEndDate && removeTimezone(filters.updatedAtEndDate)) || ""}
                 onChange={handleChange}
                 className="border rounded px-3 py-2"
               />
