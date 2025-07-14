@@ -153,14 +153,12 @@ const Notes: React.FC = () => {
           p-2
           mt-4
           ml-4
-          text-[var(--color-bg)]
+          text-[var(--color-alice-blue)]
           bg-[var(--color-secondary)]
           hover:bg-[var(--color-primary)]
+          hover:text-[var(--color-gunmetal)]
           hover:scale-110
-          rounded-full
-          transition-all
-          linear
-          duration-100">
+          rounded-full">
         <Plus
           className="
             self-start
@@ -343,9 +341,6 @@ const Notes: React.FC = () => {
             top-full
             right-0
             left-0
-            transition-all
-            ease-linear
-            duration-300
             ${showFilters ? "opacity-100 max-h-fit pointer-events-auto" : "opacity-0 max-h-0 pointer-events-none"}`}>
           <NoteFilterPanel
             onApply={(filters) => loadNotesAsync({ ...filters, ...pagination } as NoteFilterDto)}
@@ -361,9 +356,6 @@ const Notes: React.FC = () => {
             top-full
             right-0
             left-0
-            transition-all
-            ease-linear
-            duration-300
             ${showSort ? "opacity-100 max-h-fit pointer-events-auto" : "opacity-0 max-h-0 pointer-events-none"}`}>
           <NoteSortPanel
             onApply={(sort) => {

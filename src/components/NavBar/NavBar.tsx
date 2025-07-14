@@ -48,12 +48,12 @@ export const NavBar: React.FC = () => {
     <>
       <nav
         className="
+          bg-[var(--color-bg)]
           fixed
           top-0
           w-full
           z-50
-          shadow-md
-          bg-[var(--color-bg)]">
+          shadow-md">
         <div className="px-2">
           <div
             className="
@@ -78,7 +78,12 @@ export const NavBar: React.FC = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className="hover:text-[var(--color-primary)] transition">
+                  className="
+                  px-4
+                  py-1
+                  rounded
+                  hover:bg-[var(--color-secondary)]
+                  hover:text-[var(--color-alice-blue)]">
                   {link.name}
                 </Link>
               ))}
@@ -89,9 +94,8 @@ export const NavBar: React.FC = () => {
                 aria-label="Toggle dark mode"
                 className="
                 p-2
-                rounded
+                rounded-full
                 hover:bg-[var(--color-border)]
-                transition
                 cursor-pointer"
                 title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}>
                 {theme === "light" ? <MoonIcon className="h-6 w-6" /> : <SunIcon className="h-6 w-6" />}
@@ -109,14 +113,13 @@ export const NavBar: React.FC = () => {
                   </span>
                   <button
                     className="
-                    bg-[var(--color-primary)]
-                    hover:bg-[var(--color-secondary)]
-                    text-[var(--color-bg)]
-                    font-semibold
+                    text-[var(--color-alice-blue)]
+                    bg-[var(--color-secondary)]
+                    hover:text-[var(--color-gunmetal)]
+                    hover:bg-[var(--color-primary)]
                     px-4
                     py-1
                     rounded
-                    transition
                     cursor-pointer"
                     onClick={handleLogout}>
                     Logout
@@ -125,15 +128,13 @@ export const NavBar: React.FC = () => {
               ) : (
                 <button
                   className="
-                  bg-[var(--color-primary)]
-                  hover:bg-[var(--color-secondary)]
-                  text-[var(--color-bg)]
-                  font-semibold
-                  px-4
-                  py-1
-                  rounded
-                  transition
-                  cursor-pointer"
+                    bg-[var(--color-secondary)]
+                    hover:bg-[var(--color-primary)]
+                    text-[var(--color-alice-blue)]
+                    px-4
+                    py-1
+                    rounded
+                    cursor-pointer"
                   onClick={() => {
                     setMobileMenuOpen(false);
                     navigate(PATHS.LOGIN);
@@ -148,7 +149,6 @@ export const NavBar: React.FC = () => {
                   p-2
                   rounded
                   hover:bg-[var(--color-border)]
-                  transition
                   ${mobileMenuOpen && "bg-[var(--color-border)]"}`}
                 aria-label="Toggle menu">
                 <AlignJustifyIcon />
@@ -174,8 +174,7 @@ export const NavBar: React.FC = () => {
                   py-2
                   rounded
                   hover:text-[var(--color-bg)]
-                  hover:bg-[var(--color-primary)]
-                  transition"
+                  hover:bg-[var(--color-primary)]"
                   onClick={() => setMobileMenuOpen(false)}>
                   {link.name}
                 </Link>

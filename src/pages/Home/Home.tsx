@@ -8,11 +8,14 @@ const Home: React.FC = () => {
   return (
     <div
       className="
-        min-w-screen
+        flex
+        flex-col
+        justify-between
+        overflow-hidden
+        w-screen
+        h-[calc(100vh-4rem)]
         bg-[var(--color-bg)]
-        text-[var(--color-text)]
-        transition-colors
-        duration-300">
+        text-[var(--color-text)]">
       <section
         className="
           flex
@@ -35,21 +38,24 @@ const Home: React.FC = () => {
             text-lg
             md:text-xl
             max-w-xl
+            leading-loose 
             text-[var(--color-text-muted)]">
-          Keep your thoughts organized. Sync with Notion or use your private notebook — securely and easily.
+          Keep your thoughts organized.
+          <br /> Your private notebook — secure and easy.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-4">
           {!isAuthenticated && (
             <Link
               to="/login"
               className="
-              px-6
-              py-3
-              bg-[var(--color-primary)]
-              text-[var(--color-bg)]
-              rounded-xl
-              font-medium
-              hover:opacity-90">
+              px-5
+              py-2
+              text-xl
+              bg-[var(--color-secondary)]
+              text-[var(--color-alice-blue)]
+              rounded
+              hover:bg-[var(--color-primary)]
+              hover:text-[var(--color-gunmetal)]">
               Get Started
             </Link>
           )}
@@ -57,36 +63,19 @@ const Home: React.FC = () => {
             <Link
               to="/notes"
               className="
-              px-6
-              py-3
-              bg-[var(--color-primary)]
-              text-[var(--color-bg)]
-              rounded-xl
-              font-medium
-              hover:opacity-90">
+              px-5
+              py-2
+              text-xl
+              bg-[var(--color-secondary)]
+              text-[var(--color-alice-blue)]
+              rounded
+              hover:bg-[var(--color-primary)]
+              hover:text-[var(--color-gunmetal)]">
               Notes
             </Link>
           )}
         </div>
       </section>
-      <section
-        className="
-          grid
-          grid-cols-2
-          gap-8
-          px-8
-          py-16
-          bg-[var(--color-bg-alt)]">
-        <FeatureCard
-          title="Native Notes"
-          description="Create and manage notes locally with full-text support and tagging."
-        />
-        <FeatureCard
-          title="Secure Login"
-          description="Sign in with Google securely via OAuth2/OpenID Connect."
-        />
-      </section>
-
       <footer
         className="
           py-8
@@ -98,19 +87,5 @@ const Home: React.FC = () => {
     </div>
   );
 };
-
-const FeatureCard: React.FC<{ title: string; description: string }> = ({ title, description }) => (
-  <div
-    className="
-        p-6
-        rounded-xl
-        border
-        border-[var(--color-border)]
-        bg-[var(--color-bg)]
-        shadow-sm">
-    <h3 className="text-xl font-semibold mb-2">{title}</h3>
-    <p className="text-[var(--color-text-muted)]">{description}</p>
-  </div>
-);
 
 export default Home;

@@ -19,7 +19,7 @@ export const messages = {
     email: "Please enter a valid email address (e.g., user@example.com).",
     password: "Password must be 8–32 characters long and include at least one uppercase letter, one number, and one special character (e.g., @, #, !).",
     confirmPassword: "Confirm password must match your password.",
-    usernameOrEmail: "Enter a your username or email",
+    usernameOrEmail: "Enter your username or email",
     loginPassword: "Enter your password.",
     emptyNote: "Note title or content cannot be empty",
   },

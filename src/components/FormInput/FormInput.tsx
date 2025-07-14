@@ -9,8 +9,6 @@ const defaultValidStyle = `flex
           border-[var(--color-text)]
           rounded-xl
           p-1
-          transition-all
-          duration-200
           focus-within:border-[var(--color-primary)]`;
 
 const defaultInvalidStyle = `flex
@@ -20,8 +18,6 @@ const defaultInvalidStyle = `flex
           border-red-500
           rounded-xl
           p-1
-          transition-all
-          duration-200
           focus-within:border-[var(--color-primary)]`;
 
 function FormInput(props: FormInputProps) {

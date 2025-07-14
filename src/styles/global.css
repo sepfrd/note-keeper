@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+* {
+  transition: all linear 150ms;
+}
+
 body {
   margin: 0;
   display: flex;

@@ -61,8 +61,7 @@ const NoteEditorModal: React.FC<NoteEditorModalProps> = ({ note, onClose, onSave
 				      bg-[var(--color-text)]
 				      text-[var(--color-bg)]
 				      hover:bg-[var(--color-bg)]
-				      hover:text-[var(--color-text)]
-				      transition">
+				      hover:text-[var(--color-text)]">
           Cancel
         </button>
         <button
@@ -73,8 +72,7 @@ const NoteEditorModal: React.FC<NoteEditorModalProps> = ({ note, onClose, onSave
 			        rounded
 			        bg-[var(--color-secondary)]
 			        hover:bg-[var(--color-primary)]
-			        text-[var(--color-bg)]
-			        transition">
+			        text-[var(--color-bg)]">
           Save
         </button>
       </div>

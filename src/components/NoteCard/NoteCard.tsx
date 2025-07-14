@@ -19,7 +19,6 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onClick, onDelete }) => {
         hover:shadow-md
         hover:border-[var(--color-primary)]
         hover:scale-102
-        transition-all
         max-w-80
         aspect-square
         overflow-hidden"
