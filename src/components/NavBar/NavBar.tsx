@@ -1,10 +1,11 @@
+import Button from "@/components/Button";
 import { PATHS } from "@/constants/paths";
 import { AuthContext } from "@/contexts/AuthContext";
 import NewNote from "@/pages/NewNote";
 import Notes from "@/pages/Notes";
-import { AlignJustifyIcon, Home, MoonIcon, SunIcon } from "lucide-react";
+import { Home, Menu, MoonIcon, SunIcon, X } from "lucide-react";
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const NAV_LINKS = [
   { path: PATHS.HOME, element: <Home />, name: "Home", isProtected: false },
@@ -14,9 +15,10 @@ const NAV_LINKS = [
 
 export const NavBar: React.FC = () => {
   const auth = useContext(AuthContext);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,30 +43,34 @@ export const NavBar: React.FC = () => {
 
   const handleLogout = () => {
     auth?.logout();
-    setMobileMenuOpen(false);
+    setIsMenuOpen(false);
   };
 
   return (
-    <>
+    <div>
       <nav
-        className="
-          bg-[var(--color-bg)]
+        className={`
+          bg-[var(--color-bg)]      
+          border-none
           fixed
           top-0
           w-full
           z-50
-          shadow-md">
+          ${!isMenuOpen && "shadow-md"}`}>
         <div className="px-2">
           <div
             className="
+            w-full
             flex
-            flex-row
+            flex-row-reverse
             justify-between
             h-16
             items-center">
-            <Link
+            {/* <Link
               to="/"
               className="
+              hidden
+              md:inline
               flex-shrink-0
               font-bold
               text-xl
@@ -72,23 +78,80 @@ export const NavBar: React.FC = () => {
               text-[var(--color-secondary)]
               hover:text-[var(--color-primary)]">
               NoteKeeper
-            </Link>
-            <div className="hidden md:flex flex-row flex-2 ml-8 space-x-8">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className="
-                  px-4
-                  py-1
-                  rounded
-                  hover:bg-[var(--color-secondary)]
-                  hover:text-[var(--color-alice-blue)]">
-                  {link.name}
-                </Link>
-              ))}
+            </Link> */}
+            <div
+              className="
+                hidden
+                md:flex
+                flex-row
+                grow
+                space-x-8
+                justify-center
+                items-center">
+              <div>
+                {auth?.isAuthenticated ? (
+                  <Button
+                    className="
+                    px-5
+                    py-2
+                    block
+                    w-full
+                    rounded-lg
+                    text-center
+                    cursor-pointer
+                    hover:bg-[var(--color-primary)]
+                    hover:text-[var(--color-bg)]"
+                    onClick={handleLogout}
+                    label="Logout"
+                  />
+                ) : (
+                  <Button
+                    className={`
+                      px-5
+                      py-2
+                      block
+                      w-full
+                      text-center
+                      rounded-lg
+                      ${pathname !== PATHS.LOGIN && "hover:bg-[var(--color-primary)] hover:text-[var(--color-bg)]"}
+                      ${pathname === PATHS.LOGIN && "bg-slate-500"}`}
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      navigate(PATHS.LOGIN);
+                    }}
+                    label="Login"
+                  />
+                )}
+              </div>
+              {NAV_LINKS.map((link) => {
+                const isActive = pathname === link.path;
+                return (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`
+                      w-max
+                      block
+                      py-2
+                      px-5
+                      rounded-lg
+                      ${!isActive && "hover:bg-[var(--color-primary)] hover:text-[var(--color-bg)]"}
+                      ${isActive && "bg-[var(--color-highlight)]"}`}>
+                    {link.name}
+                  </Link>
+                );
+              })}
             </div>
-            <div className="flex flex-row items-center space-x-4">
+            <div
+              className="
+                flex
+                flex-row
+                md:grow-0
+                grow
+                w-max
+                justify-between
+                items-center
+                space-x-4">
               <button
                 onClick={toggleTheme}
                 aria-label="Toggle dark mode"
@@ -100,91 +163,84 @@ export const NavBar: React.FC = () => {
                 title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}>
                 {theme === "light" ? <MoonIcon className="h-6 w-6" /> : <SunIcon className="h-6 w-6" />}
               </button>
-
-              {auth?.isAuthenticated ? (
-                <>
-                  <span
-                    className="
-                    hidden
-                    sm:inline
-                    text-lg
-                    text-[var(--color-muted)]">
-                    {auth.user?.email}
-                  </span>
-                  <button
-                    className="
-                    text-[var(--color-alice-blue)]
-                    bg-[var(--color-secondary)]
-                    hover:text-[var(--color-gunmetal)]
-                    hover:bg-[var(--color-primary)]
-                    px-4
-                    py-1
-                    rounded
-                    cursor-pointer"
-                    onClick={handleLogout}>
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <button
-                  className="
-                    bg-[var(--color-secondary)]
-                    hover:bg-[var(--color-primary)]
-                    text-[var(--color-alice-blue)]
-                    px-4
-                    py-1
-                    rounded
-                    cursor-pointer"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    navigate(PATHS.LOGIN);
-                  }}>
-                  Login
-                </button>
-              )}
               <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className={`
-                  md:hidden
                   p-2
-                  rounded
-                  hover:bg-[var(--color-border)]
-                  ${mobileMenuOpen && "bg-[var(--color-border)]"}`}
+                  rounded-full
+                  md:hidden
+                  transition-all
+                  duration-1000
+                  ${isMenuOpen && "bg-slate-700 text-[var(--color-alice-blue)]"}`}
                 aria-label="Toggle menu">
-                <AlignJustifyIcon />
+                {isMenuOpen ? <X /> : <Menu />}
               </button>
             </div>
           </div>
         </div>
 
-        {mobileMenuOpen && (
+        {isMenuOpen && (
           <div
             className="
             md:hidden
-            border-t
-            border-[var(--color-border)]
-            bg-[var(--color-bg)]">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  to={link.path}
-                  className="
-                  block
-                  px-3
-                  py-2
-                  rounded
-                  hover:text-[var(--color-bg)]
-                  hover:bg-[var(--color-primary)]"
-                  onClick={() => setMobileMenuOpen(false)}>
-                  {link.name}
-                </Link>
-              ))}
+            flex
+            flex-col
+            mx-1
+            p-1
+            rounded-2xl
+            text-center
+            overflow-hidden
+            bg-[var(--color-bg-secondary)]">
+            <div>
+              <div>
+                {auth?.isAuthenticated ? (
+                  <Button
+                    className="
+                    px-3
+                    py-2
+                    block
+                    w-full
+                    cursor-pointer"
+                    onClick={handleLogout}
+                    label="Logout"
+                  />
+                ) : (
+                  <Button
+                    className={`
+                      px-3
+                      py-2
+                      block
+                      w-full
+                      text-center
+                      ${pathname === PATHS.LOGIN && "bg-slate-500 rounded-xl"}`}
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      navigate(PATHS.LOGIN);
+                    }}
+                    label="Login"
+                  />
+                )}
+              </div>
+              {NAV_LINKS.map((link) => {
+                const isActive = pathname === link.path;
+                return (
+                  <Link
+                    to={link.path}
+                    className={`
+                      block
+                      py-2
+                    ${isActive && "bg-[var(--color-highlight)] rounded-xl"}`}
+                    onClick={() => setIsMenuOpen(false)}>
+                    {link.name}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         )}
       </nav>
       <div className="h-16" />
-    </>
+    </div>
   );
 };
 
