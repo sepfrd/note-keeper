@@ -20,7 +20,7 @@ const NoteEditorModal: React.FC<NoteEditorModalProps> = ({ note, onClose, onSave
   const handleSave = async () => await onSaveAsync(localNote);
 
   return (
-    <div>
+    <div className="">
       <div
         className="
             w-full
@@ -33,7 +33,6 @@ const NoteEditorModal: React.FC<NoteEditorModalProps> = ({ note, onClose, onSave
           placeholder="Title"
           className="
               w-full
-              text-[var(--color-bg)]
               font-semibold
               text-xl
               border-b
@@ -42,10 +41,24 @@ const NoteEditorModal: React.FC<NoteEditorModalProps> = ({ note, onClose, onSave
           onChange={handleChangeTitle}
         />
       </div>
-      <MDEditor
-        value={localNote.content}
-        onChange={handleChangeContent}
-      />
+      <div
+        className="
+          md:hidden
+          w-full
+          h-max">
+        <MDEditor
+          height="100%"
+          preview={"edit"}
+          value={localNote.content}
+          onChange={handleChangeContent}
+        />
+      </div>
+      <div className="hidden md:block">
+        <MDEditor
+          value={localNote.content}
+          onChange={handleChangeContent}
+        />
+      </div>
       <div
         className="
             mt-4

@@ -10,7 +10,7 @@ import { noteService } from "@/services/noteService";
 import type { NoteDto, NoteFilterDto } from "@/types/note.types";
 import type { PaginationDto } from "@/types/pagination.types";
 import { toastService } from "@/utils/toastService";
-import { ArrowDownWideNarrow, ArrowUpNarrowWide, FunnelPlus, FunnelX, Plus } from "lucide-react";
+import { ArrowDownWideNarrow, ArrowLeft, ArrowRight, ArrowUpNarrowWide, FunnelPlus, FunnelX, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const Notes: React.FC = () => {
@@ -146,13 +146,19 @@ const Notes: React.FC = () => {
       <button
         onClick={() => setSelectedNote({ content: "", title: "", uuid: "", userUuid: user?.uuid })}
         className="
-          sticky
-          top-18
+          md:top-18
+          md:sticky
+          fixed
+          bottom-3
+          right-2
           z-40
           w-max
           p-2
-          mt-4
-          ml-4
+          md:p-2
+          md:mt-4
+          md:ml-4
+          border-2
+          border-[var(--color-text)]
           text-[var(--color-alice-blue)]
           bg-[var(--color-secondary)]
           hover:bg-[var(--color-primary)]
@@ -168,10 +174,12 @@ const Notes: React.FC = () => {
       {/* Pagination */}
       <div
         className="
-          flex
+          hidden
+          md:flex
           flex-col
           sticky
           top-18
+          w-full
           z-10">
         <div
           className="
@@ -223,7 +231,7 @@ const Notes: React.FC = () => {
               mx-4
               px-2
               py-1
-              min-w-[8rem]
+
               rounded-full
               border-none
               cursor-pointer
@@ -238,7 +246,6 @@ const Notes: React.FC = () => {
                 mx-4
                 px-2
                 py-1
-                min-w-[8rem]
                 rounded-full
                 border-none
                 bg-[var(--color-secondary)]
@@ -277,7 +284,6 @@ const Notes: React.FC = () => {
                 mx-4
                 px-2
                 py-1
-                min-w-[8rem]
                 rounded-full
                 border-none
                 disabled:opacity-50">
@@ -321,7 +327,6 @@ const Notes: React.FC = () => {
                 mx-4
                 px-2
                 py-1
-                min-w-[8rem]
                 border-none
                 bg-[var(--color-secondary)]
                 hover:bg-[var(--color-primary)]
@@ -368,15 +373,15 @@ const Notes: React.FC = () => {
           />
         </div>
       </div>
+      {/* Notes */}
       <div
         className="
-          min-w-full
-          px-4
-          mt-4
-          max-w-5xl
-          mx-auto
-          grid
-          [grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))]
+          mx-4
+          my-4
+          flex
+          flex-col
+          md:grid
+          md:[grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))]
           gap-4">
         {notes?.map((note) => (
           <NoteCard
@@ -398,17 +403,20 @@ const Notes: React.FC = () => {
 		        fixed
 		        inset-0
 		        flex
+            mt-16
 		        backdrop-blur-lg
-		        items-center
-		        justify-center
+		        md:items-center
+		        md:justify-center
 		        z-50">
           <div
             className="
-		      bg-[var(--color-muted)]
-		      max-w-2xl
-		      w-full
-		      rounded-xl
-		      p-6">
+		          md:bg-[var(--color-muted)]
+              bg-[var(--color-bg)]
+		          md:max-w-2xl
+		          w-full
+		          md:rounded-xl
+		          md:p-6
+              p-4">
             <NoteEditorModal
               note={selectedNote}
               onClose={() => setSelectedNote(null)}
@@ -423,6 +431,84 @@ const Notes: React.FC = () => {
         onCancel={() => setDeletedNote(null)}
         onConfirmAsync={handleDeleteAsync}
       />
+      {/* Mobile Version */}
+      <div
+        className="
+          md:hidden
+          overflow-hidden
+          w-full
+          justify-center
+          flex
+          flex-row
+          sticky
+          bottom-2
+          z-10">
+        <div
+          className="
+            text-[var(--color-alice-blue)]
+            flex
+            flex-row
+            items-center
+            justify-center">
+          <div
+            className="
+              flex
+              flex-row
+              border-2
+              border-[var(--color-text)]
+              px-4
+              py-2
+              w-full
+              items-center
+              justify-between
+              rounded-full
+              bg-[var(--color-bg-secondary)]">
+            <button
+              disabled={pagination.pageNumber === 1}
+              onClick={() => navigateTo(pagination.pageNumber - 1)}
+              className="
+              text-center
+              px-2
+              py-1
+              mr-3
+              rounded-full
+              border-none
+              cursor-pointer
+              bg-[var(--color-secondary)]
+              hover:bg-[var(--color-primary)]
+              disabled:opacity-50">
+              <ArrowLeft />
+            </button>
+            <span
+              className="
+                text-center
+                bg-[var(--color-secondary)]
+                rounded-full
+                border-none
+                px-2
+                py-1
+                disabled:opacity-50">
+              Page <span>{pagination.pageNumber}</span> of <span>{totalPages}</span>
+            </span>
+            <button
+              disabled={pagination.pageNumber === totalPages}
+              onClick={() => navigateTo(pagination.pageNumber + 1)}
+              className="
+                text-center
+                border-none
+                px-2
+                py-1
+                ml-3
+                bg-[var(--color-secondary)]
+                hover:bg-[var(--color-primary)]
+                rounded-full
+                cursor-pointer
+                disabled:opacity-50">
+              <ArrowRight />
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

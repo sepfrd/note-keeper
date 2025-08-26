@@ -27,11 +27,15 @@ const NewNote: React.FC = () => {
   return (
     <div
       className="
-          h-full
-		      p-6
-          m-3
-          rounded-md
-		      bg-[var(--color-muted)]">
+        bg-[var(--color-bg)]
+		    md:max-w-full
+        md:min-w-fit
+		    w-full
+		    md:rounded-xl
+        md:justify-self-center
+        md:m-2
+		    md:p-6
+        p-4">
       <NoteEditorModal
         note={note}
         onClose={handleCancel}

@@ -67,7 +67,8 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignup, onGoogleLogin }) => {
       self-center
       gap-2.5
       p-8
-      w-[450px]
+      w-full
+      md:max-w-md
       rounded-2xl
       font-sans
       text-[var(--color-text)]

@@ -25,7 +25,8 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       self-center
       gap-2.5
       p-8
-      max-w-[450px]
+      w-full
+      md:max-w-md
       rounded-2xl
       font-sans
       text-[var(--color-text)]

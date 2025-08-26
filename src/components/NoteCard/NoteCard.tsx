@@ -9,9 +9,9 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onClick, onDelete }) => {
         relative
         flex
         flex-col
+        bg-[var(--color-bg-secondary)]
         justify-between
         cursor-pointer
-        bg-[var(--color-bg)]
         rounded-xl
         shadow
         border
@@ -19,8 +19,10 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onClick, onDelete }) => {
         hover:shadow-md
         hover:border-[var(--color-primary)]
         hover:scale-102
-        max-w-80
-        aspect-square
+        w-full
+        max-h-[30vh]
+        md:max-w-80
+        md:aspect-square
         overflow-hidden"
       onClick={onClick}>
       <h2 className="font-semibold text-lg m-2">{note.title}</h2>

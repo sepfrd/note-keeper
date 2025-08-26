@@ -4,7 +4,7 @@ import { AuthContext } from "@/contexts/AuthContext";
 import NewNote from "@/pages/NewNote";
 import Notes from "@/pages/Notes";
 import { Home, Menu, MoonIcon, SunIcon, X } from "lucide-react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const NAV_LINKS = [
@@ -17,9 +17,27 @@ export const NavBar: React.FC = () => {
   const auth = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [theme, setTheme] = useState<"light" | "dark">("light");
-
+  const menuRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    }
+
+    if (isMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   useEffect(() => {
     const saved = localStorage.getItem("theme") as "light" | "dark" | null;
@@ -50,7 +68,7 @@ export const NavBar: React.FC = () => {
     <div>
       <nav
         className={`
-          bg-[var(--color-bg)]      
+          bg-[var(--color-bg)]
           border-none
           fixed
           top-0
@@ -66,19 +84,6 @@ export const NavBar: React.FC = () => {
             justify-between
             h-16
             items-center">
-            {/* <Link
-              to="/"
-              className="
-              hidden
-              md:inline
-              flex-shrink-0
-              font-bold
-              text-xl
-              select-none
-              text-[var(--color-secondary)]
-              hover:text-[var(--color-primary)]">
-              NoteKeeper
-            </Link> */}
             <div
               className="
                 hidden
@@ -181,6 +186,7 @@ export const NavBar: React.FC = () => {
 
         {isMenuOpen && (
           <div
+            ref={menuRef}
             className="
             md:hidden
             flex

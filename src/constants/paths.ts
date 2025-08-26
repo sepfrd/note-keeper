@@ -3,6 +3,7 @@ export const PATHS = {
   LOGIN: "/login",
   SIGNUP: "/signup",
   NOTES: "/notes",
-  NEW_NOTE: "/new-note",
+  NEW_NOTE: "/notes/new",
+  EDIT_NOTE: "/notes/:id/edit",
   GOOGLE_OIDC_CALLBACK: "/google-oidc",
 } as const;
