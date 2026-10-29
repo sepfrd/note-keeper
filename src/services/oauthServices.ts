@@ -8,7 +8,7 @@ export const oauthService = {
   googleLoginAsync: async () => {
     const response = await authService.requestGoogleOidcAsync(CONFIG.APP_URL + PATHS.GOOGLE_OIDC_CALLBACK);
 
-    const url = response?.isSuccess ? response.data : null;
+    const url = response?.success ? response.data : null;
 
     if (url) {
       toastService.info(messages.info.redirecting + " https://accounts.google.com/o/oauth2/auth");

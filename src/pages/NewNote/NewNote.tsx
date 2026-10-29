@@ -14,7 +14,7 @@ const NewNote: React.FC = () => {
 
   const handleSave = async (note: NoteDto) => {
     const response = await noteService.createAsync(note);
-    if (response?.isSuccess) {
+    if (response?.success) {
       toastService.success(response?.message);
       setNote({ content: "", title: "", uuid: "", userUuid: user?.uuid });
     }
@@ -27,7 +27,7 @@ const NewNote: React.FC = () => {
   return (
     <div
       className="
-        bg-[var(--color-bg)]
+        bg-(--color-bg)
 		    md:max-w-full
         md:min-w-fit
 		    w-full

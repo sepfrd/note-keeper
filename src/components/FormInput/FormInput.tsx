@@ -9,16 +9,16 @@ const defaultValidStyle = `flex
           border-[var(--color-text)]
           rounded-xl
           p-1
-          focus-within:border-[var(--color-primary)]`;
+          focus-within:border-(--color-primary)`;
 
 const defaultInvalidStyle = `flex
           flex-row
           items-center
           border
-          border-red-500
+          border-[var(--color-highlight)]
           rounded-xl
           p-1
-          focus-within:border-[var(--color-primary)]`;
+          focus-within:border-(--color-primary)`;
 
 function FormInput(props: FormInputProps) {
   const [showPassword, setShowPassword] = useState(false);
@@ -47,7 +47,7 @@ function FormInput(props: FormInputProps) {
         <label className="text-lg">{props.label}</label>
         {props.required && (
           <Asterisk
-            color="red"
+            color="var(--color-highlight)"
             size="1rem"
             className="self-start"
           />
@@ -68,7 +68,7 @@ function FormInput(props: FormInputProps) {
             w-[85%]
             h-8
             focus:outline-none
-            placeholder:text-gray-500"
+            placeholder:text-(--color-muted)"
           placeholder={props.placeHolder}
           value={props.value?.toString()}
           onChange={(e) => {
@@ -101,7 +101,7 @@ function FormInput(props: FormInputProps) {
       {hasErrors && (
         <div
           className="
-            text-red-500">
+            text-(--color-highlight)">
           {props.errorMessage}
         </div>
       )}

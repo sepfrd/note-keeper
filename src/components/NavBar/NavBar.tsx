@@ -101,7 +101,7 @@ export const NavBar: React.FC = () => {
                     py-2
                     block
                     w-full
-                    rounded-lg
+                    rounded-3xl
                     text-center
                     cursor-pointer
                     hover:bg-[var(--color-primary)]
@@ -163,8 +163,9 @@ export const NavBar: React.FC = () => {
                 className="
                 p-2
                 rounded-full
-                hover:bg-[var(--color-border)]
-                cursor-pointer"
+                cursor-pointer
+                hover:bg-(--color-text)
+                hover:text-(--color-bg)"
                 title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}>
                 {theme === "light" ? <MoonIcon className="h-6 w-6" /> : <SunIcon className="h-6 w-6" />}
               </button>
@@ -176,7 +177,7 @@ export const NavBar: React.FC = () => {
                   md:hidden
                   transition-all
                   duration-1000
-                  ${isMenuOpen && "bg-slate-700 text-[var(--color-alice-blue)]"}`}
+                  ${isMenuOpen && "bg-(--color-bg) text-(--color-text)"}`}
                 aria-label="Toggle menu">
                 {isMenuOpen ? <X /> : <Menu />}
               </button>
@@ -196,7 +197,7 @@ export const NavBar: React.FC = () => {
             rounded-2xl
             text-center
             overflow-hidden
-            bg-[var(--color-bg-secondary)]">
+            bg-(--color-bg-secondary)">
             <div>
               <div>
                 {auth?.isAuthenticated ? (
@@ -218,7 +219,7 @@ export const NavBar: React.FC = () => {
                       block
                       w-full
                       text-center
-                      ${pathname === PATHS.LOGIN && "bg-slate-500 rounded-xl"}`}
+                      ${pathname === PATHS.LOGIN && "bg-(--color-highlight) rounded-xl"}`}
                     onClick={() => {
                       setIsMenuOpen(false);
                       navigate(PATHS.LOGIN);
@@ -235,7 +236,7 @@ export const NavBar: React.FC = () => {
                     className={`
                       block
                       py-2
-                    ${isActive && "bg-[var(--color-highlight)] rounded-xl"}`}
+                    ${isActive && "bg-(--color-highlight) rounded-xl"}`}
                     onClick={() => setIsMenuOpen(false)}>
                     {link.name}
                   </Link>

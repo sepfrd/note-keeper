@@ -26,3 +26,5 @@ dist-ssr
 .env
 
 oidc-response.json
+
+.yarn/install-state.gz

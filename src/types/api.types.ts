@@ -1,6 +1,6 @@
 export interface ApiResponse<T> {
   data: T;
-  isSuccess: boolean;
+  success: boolean;
   message: string;
   statusCode: number;
 }
@@ -13,5 +13,5 @@ export interface PaginatedApiResponse<T> {
   data: T[];
   message: T;
   statusCode: number;
-  isSuccess: boolean;
+  success: boolean;
 }

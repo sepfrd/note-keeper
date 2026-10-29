@@ -9,15 +9,15 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onClick, onDelete }) => {
         relative
         flex
         flex-col
-        bg-[var(--color-bg-secondary)]
+        bg-(--color-bg-secondary)
         justify-between
         cursor-pointer
         rounded-xl
         shadow
         border
-        border-[var(--color-border)]
+        border-(--color-border)
         hover:shadow-md
-        hover:border-[var(--color-primary)]
+        hover:border-(--color-primary)
         hover:scale-102
         w-full
         max-h-[30vh]
@@ -31,8 +31,8 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onClick, onDelete }) => {
         className="
           flex
           flex-col
-          bg-[var(--color-text)]
-          text-[var(--color-bg)]
+          bg-(--color-text)
+          text-(--color-bg)
           text-xs
           py-2
           px-2
@@ -60,11 +60,11 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onClick, onDelete }) => {
               m-2
               min-w-10
               min-h-10
-              bg-[var(--color-text)]
-              text-[var(--color-bg)]
+              bg-(--color-text)
+              text-(--color-bg)
               rounded-full
-              hover:text-[var(--color-bg)]
-              hover:bg-red-500
+              hover:text-(--color-bg)
+              hover:bg-(--color-highlight)
               hover:scale-115"
         />
       </button>

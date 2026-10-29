@@ -13,8 +13,8 @@ const NoteSortPanel: React.FC<NoteSortPanelProps> = (props) => {
     <div
       className="
         p-4
-        text-[var(--color-bg)]
-        bg-[var(--color-text)]
+        text-(--color-bg)
+        bg-(--color-text)
         rounded-lg
         w-max">
       <div className="flex flex-col">
@@ -62,24 +62,24 @@ const NoteSortPanel: React.FC<NoteSortPanelProps> = (props) => {
           disabled={sort.field === "none"}
           onClick={() => props.onApply(sort)}
           className="
-              text-[var(--color-alice-blue)]
-              bg-[var(--color-secondary)]
+              text-(--color-text)
+              bg-(--color-secondary)
 				      px-4
 				      py-2
 				      rounded-full
-				      hover:bg-[var(--color-primary)]
+				      hover:bg-(--color-primary)
               disabled:opacity-50">
           Apply Filters
         </button>
         <button
           onClick={props.onCancel}
           className="
-			  	text-[var(--color-text)]
-			  	bg-[var(--color-bg)]
+			  	text-(--color-text)
+			  	bg-(--color-bg)
 				  px-4
 				  py-2
 				  rounded-full
-				  hover:bg-[var(--color-muted)]">
+				  hover:bg-(--color-muted)">
           Reset
         </button>
       </div>

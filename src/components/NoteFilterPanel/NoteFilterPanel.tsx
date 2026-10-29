@@ -24,7 +24,7 @@ const NoteFilterPanel: React.FC<NoteFilterPanelProps> = (props) => {
     <div
       className="
 			    w-full
-			    text-[var(--color-bg)]
+			    text-(--color-bg)
 			    flex
 			    flex-col
           items-center">
@@ -33,7 +33,7 @@ const NoteFilterPanel: React.FC<NoteFilterPanelProps> = (props) => {
         className="
 				  mt-4
 				  p-4
-				  bg-[var(--color-text)]
+				  bg-(--color-text)
 				  rounded-lg">
         <div
           className="
@@ -85,7 +85,7 @@ const NoteFilterPanel: React.FC<NoteFilterPanelProps> = (props) => {
                 my-2
                 items-center">
               <label>Created At</label>
-              <label className="text-[var(--color-muted)]">from</label>
+              <label className="text-(--color-muted)">from</label>
               <input
                 name="createdAtStartDate"
                 type="datetime-local"
@@ -93,7 +93,7 @@ const NoteFilterPanel: React.FC<NoteFilterPanelProps> = (props) => {
                 onChange={handleChange}
                 className="border rounded px-3 py-2"
               />
-              <label className="text-[var(--color-muted)]">to</label>
+              <label className="text-(--color-muted)">to</label>
               <input
                 name="createdAtEndDate"
                 type="datetime-local"
@@ -111,7 +111,7 @@ const NoteFilterPanel: React.FC<NoteFilterPanelProps> = (props) => {
                 items-center
                 justify-between">
               <label>Updated At</label>
-              <label className="text-[var(--color-muted)]">from</label>
+              <label className="text-(--color-muted)">from</label>
               <input
                 name="updatedAtStartDate"
                 type="datetime-local"
@@ -119,7 +119,7 @@ const NoteFilterPanel: React.FC<NoteFilterPanelProps> = (props) => {
                 onChange={handleChange}
                 className="border rounded px-3 py-2"
               />
-              <label className="text-[var(--color-muted)]">to</label>
+              <label className="text-(--color-muted)">to</label>
               <input
                 name="updatedAtEndDate"
                 type="datetime-local"
@@ -135,23 +135,23 @@ const NoteFilterPanel: React.FC<NoteFilterPanelProps> = (props) => {
           <button
             onClick={() => props.onApply(filters)}
             className="
-              text-[var(--color-alice-blue)]
-              bg-[var(--color-secondary)]
+              text-(--color-text)
+              bg-(--color-secondary)
 				      px-4
 				      py-2
 				      rounded-full
-				      hover:bg-[var(--color-primary)]">
+				      hover:bg-(--color-primary)">
             Apply Filters
           </button>
           <button
             onClick={resetFilters}
             className="
-			  	text-[var(--color-text)]
-			  	bg-[var(--color-bg)]
-				px-4
-				py-2
-				rounded-full
-				hover:bg-[var(--color-muted)]">
+			  	    text-(--color-text)
+			  	    bg-(--color-bg)
+				      px-4
+				      py-2
+				      rounded-full
+				      hover:bg-(--color-muted)">
             Reset
           </button>
         </div>

@@ -64,7 +64,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       authService
         .refreshAccessTokenAsync()
         .then((response) => {
-          const token = response?.isSuccess ? response.data : null;
+          const token = response?.success ? response.data : null;
           if (token) {
             login(token);
           } else {

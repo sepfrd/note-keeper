@@ -29,10 +29,10 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       md:max-w-md
       rounded-2xl
       font-sans
-      text-[var(--color-text)]
-      bg-[var(--color-bg)]
+      text-(--color-text)
+      bg-(--color-bg)
       border-2
-      border-[var(--color-text)]">
+      border-(--color-text)">
       <FormInput
         type="text"
         name="usernameOrEmail"
@@ -80,18 +80,18 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
       <button
         className="
         my-5
-        text-[var(--color-bg)]
-        bg-[var(--color-text)]
+        text-(--color-bg)
+        bg-(--color-text)
         text-xl
         font-medium
         rounded-xl
-        h-[50px]
+        h-12.5
         w-full
         cursor-pointer
         hover:border-2
-        hover:bg-[var(--color-bg)]
-        hover:text-[var(--color-text)]
-        hover:border-[var(--color-text)]"
+        hover:bg-(--color-bg)
+        hover:text-(--color-text)
+        hover:border-(--color-text)"
         onClick={(e) => {
           e.preventDefault();
           props.onLogin(loginInfo);
@@ -102,7 +102,7 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
         Don't have an account?{" "}
         <button
           type="button"
-          className="text-sm ml-1 text-[var(--color-primary)] font-medium cursor-pointer"
+          className="text-sm ml-1 text-(--color-primary) font-medium cursor-pointer"
           onClick={() => navigate(PATHS.SIGNUP)}>
           Sign Up
         </button>
@@ -118,17 +118,17 @@ const LoginForm: React.FC<LoginFormProps> = (props) => {
           items-center
           gap-2.5
           my-5
-          text-[var(--color-bg)]
-          bg-[var(--color-text)]
+          text-(--color-bg)
+          bg-(--color-text)
           text-xl
           rounded-xl
-          h-[50px]
+          h-12.5
           w-full
           cursor-pointer
           hover:border-2
-          hover:bg-[var(--color-bg)]
-          hover:text-[var(--color-text)]
-          hover:border-[var(--color-text)]"
+          hover:bg-(--color-bg)
+          hover:text-(--color-text)
+          hover:border-(--color-text)"
           onClick={(e) => {
             e.preventDefault();
             props.onGoogleLogin();

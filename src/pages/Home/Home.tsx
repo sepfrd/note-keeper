@@ -14,8 +14,8 @@ const Home: React.FC = () => {
         overflow-hidden
         w-screen
         h-[calc(100vh-4rem)]
-        bg-[var(--color-bg)]
-        text-[var(--color-text)]">
+        bg-(--color-bg)
+        text-(--color-text)">
       <section
         className="
           flex
@@ -39,7 +39,7 @@ const Home: React.FC = () => {
             md:text-xl
             max-w-xl
             leading-loose 
-            text-[var(--color-text-muted)]">
+            text-(--color-text-muted)">
           Keep your thoughts organized.
           <br /> Your private notebook — secure and easy.
         </p>
@@ -51,11 +51,11 @@ const Home: React.FC = () => {
               px-5
               py-2
               text-xl
-              bg-[var(--color-secondary)]
-              text-[var(--color-alice-blue)]
+              bg-(--color-secondary)
+              text-(--color-alice-blue)
               rounded
-              hover:bg-[var(--color-primary)]
-              hover:text-[var(--color-gunmetal)]">
+              hover:bg-(--color-primary)
+              hover:text-(--color-gunmetal)">
               Get Started
             </Link>
           )}
@@ -66,11 +66,11 @@ const Home: React.FC = () => {
               px-5
               py-2
               text-xl
-              bg-[var(--color-secondary)]
-              text-[var(--color-alice-blue)]
+              bg-(--color-secondary)
+              text-(--color-alice-blue)
               rounded
-              hover:bg-[var(--color-primary)]
-              hover:text-[var(--color-gunmetal)]">
+              hover:bg-(--color-primary)
+              hover:text-(--color-gunmetal)">
               Notes
             </Link>
           )}
@@ -81,7 +81,7 @@ const Home: React.FC = () => {
           py-8
           text-center
           text-sm
-          text-[var(--color-text-muted)]">
+          text-(--color-text-muted)">
         © {new Date().getFullYear()} NoteKeeper. All rights reserved.
       </footer>
     </div>

@@ -71,10 +71,10 @@ const NoteEditorModal: React.FC<NoteEditorModalProps> = ({ note, onClose, onSave
 				      px-4
 				      py-2
 				      rounded
-				      bg-[var(--color-text)]
-				      text-[var(--color-bg)]
-				      hover:bg-[var(--color-bg)]
-				      hover:text-[var(--color-text)]">
+				      bg-(--color-text)
+				      text-(--color-bg)
+				      hover:bg-(--color-bg)
+				      hover:text-(--color-text)">
           Cancel
         </button>
         <button
@@ -83,9 +83,9 @@ const NoteEditorModal: React.FC<NoteEditorModalProps> = ({ note, onClose, onSave
 			        px-4
 			        py-2
 			        rounded
-			        bg-[var(--color-secondary)]
-			        hover:bg-[var(--color-primary)]
-			        text-[var(--color-bg)]">
+			        bg-(--color-secondary)
+			        hover:bg-(--color-primary)
+			        text-(--color-bg)">
           Save
         </button>
       </div>

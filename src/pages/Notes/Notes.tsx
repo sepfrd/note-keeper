@@ -21,7 +21,7 @@ const Notes: React.FC = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
   const [showSort, setShowSort] = useState(false);
-  const [shouldResetFilterPanel, setshouldResetFilterPanel] = useState(false);
+  const [shouldResetFilterPanel, setShouldResetFilterPanel] = useState(false);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -30,7 +30,7 @@ const Notes: React.FC = () => {
 
   const loadNotesAsync = async (filters: NoteFilterDto) => {
     const response = await noteService.getAllAsync(filters);
-    const notes = response?.isSuccess ? response.data : null;
+    const notes = response?.success ? response.data : null;
     if (notes) {
       setNotes(notes);
       setTotalPages(Math.ceil(response!.totalCount / (filters.pageSize || 10)));
@@ -85,7 +85,7 @@ const Notes: React.FC = () => {
         newContent: note.content,
       });
 
-      if (response?.isSuccess) {
+      if (response?.success) {
         toastService.success(response.message);
         await loadNotesAsync({ ...pagination });
       } else {
@@ -93,7 +93,7 @@ const Notes: React.FC = () => {
       }
     } else {
       const response = await noteService.createAsync(note);
-      if (response?.isSuccess) {
+      if (response?.success) {
         toastService.success(response.message);
         await loadNotesAsync({ ...pagination });
       } else {
@@ -107,7 +107,7 @@ const Notes: React.FC = () => {
   const handleDeleteAsync = async () => {
     const response = await noteService.deleteAsync(deletedNote!.uuid);
 
-    if (response?.isSuccess) {
+    if (response?.success) {
       toastService.success(response.message);
       await loadNotesAsync({ ...pagination });
     } else {
@@ -158,11 +158,11 @@ const Notes: React.FC = () => {
           md:mt-4
           md:ml-4
           border-2
-          border-[var(--color-text)]
-          text-[var(--color-alice-blue)]
-          bg-[var(--color-secondary)]
-          hover:bg-[var(--color-primary)]
-          hover:text-[var(--color-gunmetal)]
+          text-(--color-text)
+          bg-(--color-bg)
+          border-(--color-text)
+          hover:text-(--color-bg)
+          hover:bg-(--color-text)
           hover:scale-110
           rounded-full">
         <Plus
@@ -184,7 +184,7 @@ const Notes: React.FC = () => {
         <div
           className="
             relative
-            text-[var(--color-alice-blue)]
+            text-(--color-text)
             flex
             w-full
             flex-row
@@ -199,15 +199,15 @@ const Notes: React.FC = () => {
               justify-between
               p-2
               rounded-full
-              bg-[var(--color-text)]">
+              bg-(--color-text)">
             <button
               onClick={() => setShowFilters((prev) => !prev)}
               className="
               mr-1
 			        p-2
-			        bg-[var(--color-secondary)]
 			        rounded-full
-			        hover:bg-[var(--color-primary)]">
+			        bg-(--color-bg)
+			        hover:bg-(--color-primary)">
               {showFilters ? <FunnelX /> : <FunnelPlus className="max-h-fit" />}
             </button>
             <button
@@ -218,9 +218,9 @@ const Notes: React.FC = () => {
               className="
               ml-1
 			        p-2
-			        bg-[var(--color-secondary)]
 			        rounded-full
-			        hover:bg-[var(--color-primary)]">
+			        bg-(--color-bg)
+			        hover:bg-(--color-primary)">
               {showSort ? <ArrowUpNarrowWide /> : <ArrowDownWideNarrow className="max-h-fit" />}
             </button>
             <button
@@ -231,12 +231,11 @@ const Notes: React.FC = () => {
               mx-4
               px-2
               py-1
-
               rounded-full
               border-none
               cursor-pointer
-              bg-[var(--color-secondary)]
-              hover:bg-[var(--color-primary)]
+              bg-(--color-bg)
+              hover:bg-(--color-primary)
               disabled:opacity-50">
               Previous
             </button>
@@ -248,14 +247,14 @@ const Notes: React.FC = () => {
                 py-1
                 rounded-full
                 border-none
-                bg-[var(--color-secondary)]
+                bg-(--color-bg)
                 disabled:opacity-50">
               <label htmlFor="pageSize">Page Size: </label>
               <select
                 name="pageSize"
                 className="
                 cursor-pointer
-                bg-[var(--color-primary)]
+                bg-(--color-primary)
                 border-none
                 rounded-full"
                 id="pageSize"
@@ -269,7 +268,7 @@ const Notes: React.FC = () => {
                     });
                   }
 
-                  setshouldResetFilterPanel((prev) => !prev);
+                  setShouldResetFilterPanel((prev) => !prev);
                 }}>
                 <option value={10}>10</option>
                 <option value={25}>25</option>
@@ -280,7 +279,7 @@ const Notes: React.FC = () => {
             <span
               className="
                 text-center
-                bg-[var(--color-secondary)]
+                bg-(--color-bg)
                 mx-4
                 px-2
                 py-1
@@ -293,7 +292,7 @@ const Notes: React.FC = () => {
                   name="pageNumber"
                   className="
                     cursor-pointer
-                    bg-[var(--color-primary)]
+                    bg-(--color-primary)
                     border-none
                     rounded-full"
                   id="pageNumber"
@@ -328,8 +327,8 @@ const Notes: React.FC = () => {
                 px-2
                 py-1
                 border-none
-                bg-[var(--color-secondary)]
-                hover:bg-[var(--color-primary)]
+                bg-(--color-bg)
+                hover:bg-(--color-primary)
                 rounded-full
                 cursor-pointer
                 disabled:opacity-50">
@@ -381,7 +380,7 @@ const Notes: React.FC = () => {
           flex
           flex-col
           md:grid
-          md:[grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))]
+          md:grid-cols-[repeat(auto-fit,minmax(15rem,1fr))]
           gap-4">
         {notes?.map((note) => (
           <NoteCard
@@ -410,8 +409,8 @@ const Notes: React.FC = () => {
 		        z-50">
           <div
             className="
-		          md:bg-[var(--color-muted)]
-              bg-[var(--color-bg)]
+		          md:bg-(--color-muted)
+              bg-(--color-bg)
 		          md:max-w-2xl
 		          w-full
 		          md:rounded-xl
@@ -445,7 +444,7 @@ const Notes: React.FC = () => {
           z-10">
         <div
           className="
-            text-[var(--color-alice-blue)]
+            text-(--color-text)
             flex
             flex-row
             items-center
@@ -455,14 +454,14 @@ const Notes: React.FC = () => {
               flex
               flex-row
               border-2
-              border-[var(--color-text)]
+              border-(--color-text)
               px-4
               py-2
               w-full
               items-center
               justify-between
               rounded-full
-              bg-[var(--color-bg-secondary)]">
+              bg-(--color-bg-secondary)">
             <button
               disabled={pagination.pageNumber === 1}
               onClick={() => navigateTo(pagination.pageNumber - 1)}
@@ -474,15 +473,15 @@ const Notes: React.FC = () => {
               rounded-full
               border-none
               cursor-pointer
-              bg-[var(--color-secondary)]
-              hover:bg-[var(--color-primary)]
+              bg-(--color-secondary)
+              hover:bg-(--color-primary)
               disabled:opacity-50">
               <ArrowLeft />
             </button>
             <span
               className="
                 text-center
-                bg-[var(--color-secondary)]
+                bg-(--color-secondary)
                 rounded-full
                 border-none
                 px-2
@@ -499,8 +498,8 @@ const Notes: React.FC = () => {
                 px-2
                 py-1
                 ml-3
-                bg-[var(--color-secondary)]
-                hover:bg-[var(--color-primary)]
+                bg-(--color-secondary)
+                hover:bg-(--color-primary)
                 rounded-full
                 cursor-pointer
                 disabled:opacity-50">

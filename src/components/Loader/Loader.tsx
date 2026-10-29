@@ -17,7 +17,7 @@ const Loader: React.FC = () => {
           absolute
           w-screen
           h-screen
-          bg-[var(--color-bg)]
+          bg-(--color-bg)
           opacity-50"
       />
       <svg
@@ -29,7 +29,7 @@ const Loader: React.FC = () => {
           p-0
           m-0
           aspect-square
-          text-[var(--color-text)]
+          text-(--color-text)
           rounded-full
           z-50">
         <defs>

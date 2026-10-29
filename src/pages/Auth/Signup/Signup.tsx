@@ -24,7 +24,7 @@ const Signup = () => {
 
     const response = await authService.signupAsync(dto);
 
-    if (response?.isSuccess) {
+    if (response?.success) {
       toastService.success(response.message);
       navigate(PATHS.LOGIN);
     } else {
@@ -41,7 +41,7 @@ const Signup = () => {
         justify-center
         items-center
         overflow-hidden
-        bg-[var(--color-bg)]">
+        bg-(--color-bg)">
       <SignupForm
         onSignup={onSignupAsync}
         onGoogleLogin={oauthService.googleLoginAsync}

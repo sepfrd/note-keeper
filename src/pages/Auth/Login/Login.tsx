@@ -21,7 +21,7 @@ const Login = () => {
 
   const onLogin: LoginHandler = async (dto) => {
     const response = await authService.loginAsync(dto);
-    const token = response?.isSuccess ? response.data : null;
+    const token = response?.success ? response.data : null;
     if (token) {
       login(token);
       toastService.success(messages.success.loginSuccess);
@@ -38,7 +38,7 @@ const Login = () => {
         flex
         flex-col
         overflow-hidden
-        bg-[var(--color-bg)]">
+        bg-(--color-bg)">
       <LoginForm
         onLogin={onLogin}
         onGoogleLogin={oauthService.googleLoginAsync}

@@ -27,14 +27,14 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({ isOpen, note, o
 		    backdrop-blur-lg">
       <div
         className="
-	  		bg-[var(--color-bg)]
-			rounded-xl
-			border-2
-			border-[var(--color-border)]
-			shadow-xl
-			max-w-sm
-			w-full
-			p-6">
+	  		bg-(--color-bg)
+			  rounded-xl
+			  border-2
+			  border-(--color-border)
+			  shadow-xl
+			  max-w-sm
+			  w-full
+			  p-6">
         <h2
           className="
 		  	text-lg
@@ -57,23 +57,23 @@ const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({ isOpen, note, o
           <button
             onClick={onCancel}
             className="
-				px-4
-				py-2
-				rounded-lg
-				text-[var(--color-white)]
-				bg-[var(--color-secondary)]
-				hover:bg-[var(--color-primary)]">
+				      px-4
+				      py-2
+				      rounded-lg
+				      text-(--color-bg)
+				      bg-(--color-secondary)
+				      hover:bg-(--color-highlight)">
             Cancel
           </button>
           <button
             onClick={handleConfirmAsync}
             className="
-				px-4
-				py-2
-				rounded-lg
-				text-[var(--color-white)]
-				bg-red-800
-				hover:bg-red-700">
+				      px-4
+				      py-2
+				      rounded-lg
+				      text-(--color-bg)
+				      bg-(--color-secondary)
+				      hover:bg-(--color-highlight)">
             Delete
           </button>
         </div>

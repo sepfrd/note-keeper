@@ -71,10 +71,10 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignup, onGoogleLogin }) => {
       md:max-w-md
       rounded-2xl
       font-sans
-      text-[var(--color-text)]
-      bg-[var(--color-bg)]
+      text-(--color-text)
+      bg-(--color-bg)
       border-2
-      border-[var(--color-text)]">
+      border-(--color-text)">
       <FormInput
         type="text"
         name="username"
