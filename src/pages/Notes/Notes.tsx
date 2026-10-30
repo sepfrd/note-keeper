@@ -380,7 +380,7 @@ const Notes: React.FC = () => {
           flex
           flex-col
           md:grid
-          md:grid-cols-[repeat(auto-fit,minmax(15rem,1fr))]
+          md:grid-cols-[repeat(auto-fill,minmax(15rem,20rem))]
           gap-4">
         {notes?.map((note) => (
           <NoteCard
@@ -444,7 +444,7 @@ const Notes: React.FC = () => {
           z-10">
         <div
           className="
-            text-(--color-text)
+            text-(--color-alice-blue)
             flex
             flex-row
             items-center

@@ -68,7 +68,7 @@ const Home: React.FC = () => {
               text-xl
               bg-(--color-secondary)
               text-(--color-alice-blue)
-              rounded
+              rounded-full
               hover:bg-(--color-primary)
               hover:text-(--color-gunmetal)">
               Notes

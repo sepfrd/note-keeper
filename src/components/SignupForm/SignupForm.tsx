@@ -192,18 +192,18 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignup, onGoogleLogin }) => {
       <button
         className="
         my-5
-        text-[var(--color-bg)]
-        bg-[var(--color-text)]
+        text-(--color-bg)
+        bg-(--color-text)
         text-xl
         font-medium
         rounded-xl
-        h-[50px]
+        h-12.5
         w-full
         cursor-pointer
         hover:border-2
-        hover:bg-[var(--color-bg)]
-        hover:text-[var(--color-text)]
-        hover:border-[var(--color-text)]"
+        hover:bg-(--color-bg)
+        hover:text-(--color-text)
+        hover:border-(--color-text)"
         onClick={handleSignupAsync}>
         Sign Up
       </button>
@@ -211,7 +211,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignup, onGoogleLogin }) => {
         Already have an account?{" "}
         <button
           type="button"
-          className="text-sm ml-1 text-[var(--color-primary)] font-medium cursor-pointer"
+          className="text-sm ml-1 text-(--color-primary) font-medium cursor-pointer"
           onClick={() => navigate(PATHS.LOGIN)}>
           Sign In
         </button>
@@ -227,17 +227,17 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSignup, onGoogleLogin }) => {
           items-center
           gap-2.5
           my-5
-          text-[var(--color-bg)]
-          bg-[var(--color-text)]
+          text-(--color-bg)
+          bg-(--color-text)
           text-xl
           rounded-xl
-          h-[50px]
+          h-12.5
           w-full
           cursor-pointer
           hover:border-2
-          hover:bg-[var(--color-bg)]
-          hover:text-[var(--color-text)]
-          hover:border-[var(--color-text)]"
+          hover:bg-(--color-bg)
+          hover:text-(--color-text)
+          hover:border-(--color-text)"
           onClick={(e) => {
             e.preventDefault();
             onGoogleLogin();

@@ -28,7 +28,7 @@ const NewNote: React.FC = () => {
     <div
       className="
         bg-(--color-bg)
-		    md:max-w-full
+		    md:max-w-5xl
         md:min-w-fit
 		    w-full
 		    md:rounded-xl

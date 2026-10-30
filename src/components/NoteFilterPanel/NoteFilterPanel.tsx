@@ -31,7 +31,6 @@ const NoteFilterPanel: React.FC<NoteFilterPanelProps> = (props) => {
       {/* Filter Panel */}
       <div
         className="
-				  mt-4
 				  p-4
 				  bg-(--color-text)
 				  rounded-lg">

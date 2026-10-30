@@ -68,7 +68,7 @@ export const NavBar: React.FC = () => {
     <div>
       <nav
         className={`
-          bg-[var(--color-bg)]
+          bg-(--color-bg)
           border-none
           fixed
           top-0
@@ -104,8 +104,8 @@ export const NavBar: React.FC = () => {
                     rounded-3xl
                     text-center
                     cursor-pointer
-                    hover:bg-[var(--color-primary)]
-                    hover:text-[var(--color-bg)]"
+                    hover:bg-(--color-primary)
+                    hover:text-(--color-bg)"
                     onClick={handleLogout}
                     label="Logout"
                   />
@@ -117,8 +117,8 @@ export const NavBar: React.FC = () => {
                       block
                       w-full
                       text-center
-                      rounded-lg
-                      ${pathname !== PATHS.LOGIN && "hover:bg-[var(--color-primary)] hover:text-[var(--color-bg)]"}
+                      rounded-full
+                      ${pathname !== PATHS.LOGIN && "hover:bg-(--color-primary) hover:text-(--color-bg)"}
                       ${pathname === PATHS.LOGIN && "bg-slate-500"}`}
                     onClick={() => {
                       setIsMenuOpen(false);
@@ -139,9 +139,9 @@ export const NavBar: React.FC = () => {
                       block
                       py-2
                       px-5
-                      rounded-lg
-                      ${!isActive && "hover:bg-[var(--color-primary)] hover:text-[var(--color-bg)]"}
-                      ${isActive && "bg-[var(--color-highlight)]"}`}>
+                      rounded-full
+                      ${!isActive && "hover:bg-(--color-primary) hover:text-(--color-bg)"}
+                      ${isActive && "bg-(--color-highlight)"}`}>
                     {link.name}
                   </Link>
                 );
